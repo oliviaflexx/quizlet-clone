@@ -10,7 +10,12 @@ spec:
     - host: quizlet.dev
       http:
         paths:
-          - path: /api/users/?(.*)
+          - path: /api/auth/?(.*)
             backend:
               serviceName: auth-srv
               servicePort: 3000
+          - path: /?(.*)
+            backend:
+              serviceName: client-srv
+              servicePort: 3000
+

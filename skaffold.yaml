@@ -13,12 +13,20 @@ build:
   artifacts:
     - image: us.gcr.io/quizlet-clone-330017/auth
       context: auth
-      hooks:
-        before:
-        - command: [export GOOGLE_APPLICATION_CREDENTIALS="/Users/oliviafelix/Downloads/quizlet-clone-330017-109fc63e19f7.json"]
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
           - src: "src/**/*.ts"
+            dest: .
+    - image: us.gcr.io/quizlet-clone-330017/client
+      context: client
+      # hooks:
+      #   before:
+      #   - command: ["export", "GOOGLE_APPLICATION_CREDENTIALS='/Users/oliviafelix/Desktop/quizlet-clone/google_key.json'"]
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.js'
             dest: .

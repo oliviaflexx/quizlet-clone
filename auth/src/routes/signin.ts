@@ -10,7 +10,7 @@ import { BadRequestError } from '../errors/bad-request-error';
 const router = express.Router();
 
 router.post(
-  "/api/users/signin",
+  "/api/auth/signin",
   [
     body("name").notEmpty().withMessage("You must supply a username"),
     body("password")
