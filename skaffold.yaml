@@ -1,0 +1,24 @@
+# apiVersion: skaffold/v2alpha3
+apiVersion: skaffold/v2beta24
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  # local:
+  #   push: false
+  googleCloudBuild:
+    projectId: quizlet-clone-330017
+  artifacts:
+    - image: us.gcr.io/quizlet-clone-330017/auth
+      context: auth
+      hooks:
+        before:
+        - command: [export GOOGLE_APPLICATION_CREDENTIALS="/Users/oliviafelix/Downloads/quizlet-clone-330017-109fc63e19f7.json"]
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
