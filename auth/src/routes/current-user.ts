@@ -1,5 +1,5 @@
 import express from 'express';
-import { currentUser } from '../middlewares/current-user';
+import { currentUser } from '@quizlet-clone/common';
 
 const router = express.Router();
 
