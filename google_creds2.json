@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "quizlet-clone-330017",
+  "private_key_id": "7001ba16c3ef482d7701fe0a2fdf4c7bee5a72c0",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDJSPZDUwlusMZ7\n059pKhifavDYBTEb7bb9KU9SwLJ4ebp+oVFgTtzBYDJZgtNG93vfhBmTxTg09wr2\nUbznvMYadPyUzL1avg5Zl8xEBzDNS9RI0088TuewcxBV3AjLWeER9LxGlzH9gs6E\ns8LE3ZCOHFzJjaOsb4+J3S1sUVO+EvYmIejU8dLULFENoKek1EJSzv9OYxwMjydF\nTfeG15XAkYrvXkRgFM945im6u5jAWACcLY9qhK5w6WufZtPC0YrCR5OnhokyTmM6\nkcDlCEd/X4OFm+eaGionXe32V/Lrvl7X9yHhFpThqEjhmSrBCPKLN/F6a+kxm+W7\nk+TpQvvtAgMBAAECggEAAogcszxHb8rgz2yAfBai9T8nmCTGLHQN3qfj29MZPsNG\nyx8lTy3lJrhNudF+IQDg4BVUKwckGopwhI7Pob++lohmwUpeWvAg0+CnmZClMDFz\nEjCfApx6Qb5ljYCCF2iu5SAFmpx+BpKPUJz5zXcWwXehQfAg1GNM1C7ISpOVSlxp\nLlNNrTLpVMLAcykknAZl/rW+oDPTB+YiwYC0mB+GrrZCER/tHBPcv7u7StI5FoiG\nqPLemThTFgLfWITI5n98Cypy7Eh8zDZJ+C8motn8yUjuGkub2cN+BTpFEPvQu73u\nUhoklGSQK8fsFM1CgGgCq9/h0aw9FJGzFtmkCJinwQKBgQDpmS0hNw1si5Qbgl+y\ny+l/q4aX9sTSHVlPE4V8UoDAHoGsM5qLVG3MJUgwlWDGrQ4oieP77SiWdjiy5kG6\nlL1uhiSp3IYioyKrFP3ahWnDrWkyC9uBp3M8nMeShNKoAEEMig02nyQiBZaFvbf8\nqkZ0RIIG5mHunV4hao5xxqatDQKBgQDcln7Tctn0iBxaGAE01X+T4Sj+iuCVnLv2\nDxrYLd+DWic7McgvLxDQlNeTS3Tf0OKNO5Vm3VFQrXcf9VK+51YPy+5Weza5gwAv\nAkqBt9gFJg77KUe6lfc23CUoVrGDFWVjb/aQj6M0DKTjrhmb4nzXEmUEBxYDJfcg\nOo7ZdJKSYQKBgQCca0FY+HA4us4WDZrfMsPMBaM+prLsr1JaLQw5T1V/T+4szPEz\nUvmitWQ9hAklgEP2yT6sNwXymn8k7CIfOfIOzCxIwa3gC7TvMkM5zBQiP0AtjtsR\nWntDnwfUCLS2YlUsfFSUusOLNIqyS3Oj8LD0sdsPm7z/9shNP/jaHtcFEQKBgQCO\nmrxi9lzxOQ0bMWmWPm+7qlRWOnH2Rt08tYclOoLE6AN0wTopRsQYFCFJl/52sxPD\nOkHbvjhTb9ETWAWmZOe+TphGUGGQjKARw+lm8vM0YOZOeOFmPo0Taj6bVXBszeg9\n4KQF0NYxT/tJNcRYgpMydzHW6L3SSzj4HOM8saAQAQKBgQC8dmYUK3Jcjv7zA8gC\nJqBBijIUBigxBJAhq/j+P2YDcWq3YCHCFNzPRDaNMV/AkT0GybdssG+z11Iahhw4\n9ai7PyWD86fl1WkHHPmEjF3irNR4sd5s3hFh0hewZC3J1KF6TFMhE1Xj4wadmf43\nXZ9eH5kgYKf00IdYMwVls0HRTA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "authenty2@quizlet-clone-330017.iam.gserviceaccount.com",
+  "client_id": "103597449975804536135",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/authenty2%40quizlet-clone-330017.iam.gserviceaccount.com"
+}

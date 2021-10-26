@@ -9,9 +9,9 @@ build:
   # local:
   #   push: false
   googleCloudBuild:
-    projectId: quizlet-clone-330017
+    projectId: quizlet-330213
   artifacts:
-    - image: us.gcr.io/quizlet-clone-330017/auth
+    - image: us.gcr.io/quizlet-330213/auth
       context: auth
       docker:
         dockerfile: Dockerfile
@@ -19,7 +19,7 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: us.gcr.io/quizlet-clone-330017/client
+    - image: us.gcr.io/quizlet-330213/client
       context: client
       # hooks:
       #   before:
