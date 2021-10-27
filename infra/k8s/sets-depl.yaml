@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sets-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sets
+  template:
+    metadata:
+      labels:
+        app: sets
+    spec:
+      containers:
+        - name: sets
+          image: us.gcr.io/quizlet-330213/sets
+          env:
+            - name: MONGO_URI
+              value: 'mongodb://sets-mongo-srv:27017/sets'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sets-srv
+spec:
+  selector:
+    app: sets
+  ports:
+    - name: sets
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

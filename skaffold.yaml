@@ -21,9 +21,6 @@ build:
             dest: .
     - image: us.gcr.io/quizlet-330213/client
       context: client
-      # hooks:
-      #   before:
-      #   - command: ["export GOOGLE_APPLICATION_CREDENTIALS='/Users/oliviafelix/Desktop/quizlet-clone/google_creds.json"]
       docker:
         dockerfile: Dockerfile
       sync:
