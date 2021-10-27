@@ -36,11 +36,3 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
-    # - image: us.gcr.io/quizlet-330213/sets
-    #   context: sets
-    #   docker:
-    #     dockerfile: Dockerfile
-    #   sync:
-    #     manual:
-    #       -src: '**/*.js'
-    #         dest: .

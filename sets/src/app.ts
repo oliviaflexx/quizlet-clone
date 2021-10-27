@@ -6,7 +6,7 @@ import { errorHandler, NotFoundError, currentUser } from "@quizlet-clone/common"
 import {createSetRouter} from "./routes/new";
 import { showSetRouter } from "./routes/show";
 import { indexSetRouter } from "./routes/index";
-
+import { updateSetRouter } from "./routes/update";
 
 const app = express();
 app.set("trust proxy", true);
@@ -23,6 +23,7 @@ app.use(currentUser);
 app.use(createSetRouter);
 app.use(showSetRouter);
 app.use(indexSetRouter);
+app.use(updateSetRouter);
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();
