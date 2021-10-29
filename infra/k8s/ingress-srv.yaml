@@ -18,6 +18,10 @@ spec:
             backend:
               serviceName: sets-srv
               servicePort: 3000
+          - path: /api/suggestions/?(.*)
+            backend:
+              serviceName: suggestions-srv
+              servicePort: 3000
           - path: /?(.*)
             backend:
               serviceName: client-srv

@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: suggestions-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: suggestions
+  template:
+    metadata:
+      labels:
+        app: suggestions
+    spec:
+      containers:
+        - name: suggestions
+          image: us.gcr.io/quizlet-330213/suggestions
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: quizlet-clone
+            - name: MONGO_URI
+              value: 'mongodb://sets-mongo-srv:27017/suggestions'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: suggestions-srv
+spec:
+  selector:
+    app: suggestions
+  ports:
+    - name: suggestions
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

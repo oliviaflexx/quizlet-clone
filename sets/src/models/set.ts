@@ -59,16 +59,24 @@ interface SetModel extends mongoose.Model<SetDoc> {
 }
 
 const termSchema = new mongoose.Schema(
-    {
+  {
     term: {
-        type: String,
-        required: true
-    }, 
+      type: String,
+      required: true,
+    },
     definition: {
-        type: String,
-        required: true
-    }
-}
+      type: String,
+      required: true,
+    },
+  },
+  {
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
+  }
 );
 
 const setSchema = new mongoose.Schema(
