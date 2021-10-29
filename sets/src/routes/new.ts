@@ -4,6 +4,8 @@ import { requireAuth, validateRequest, BadRequestError} from "@quizlet-clone/com
 import { Set } from "../models/set";
 import {ViewOptions} from "../view-settings";
 import { EditOptions } from "../edit-settings";
+import { SetCreatedPublisher } from "../events/publishers/set-created-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
@@ -50,6 +52,11 @@ router.post(
 
     await set.save();
 
+    await new SetCreatedPublisher(natsWrapper.client).publish({
+      id: set.id,
+      title: set.title,
+      terms: set.terms
+    })
     res.status(201).send(set);
 
   }

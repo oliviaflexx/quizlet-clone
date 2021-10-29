@@ -16,6 +16,14 @@ spec:
         - name: sets
           image: us.gcr.io/quizlet-330213/sets
           env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: quizlet-clone
             - name: MONGO_URI
               value: 'mongodb://sets-mongo-srv:27017/sets'
             - name: JWT_KEY

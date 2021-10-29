@@ -10,7 +10,8 @@ import {
 
 import { Set } from '../models/set';
 import { ViewOptions } from "../view-settings";
-
+import { SetUpdatedPublisher } from "../events/publishers/set-updated-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
@@ -42,6 +43,11 @@ router.put(
 
     await set.save();
 
+    await new SetUpdatedPublisher(natsWrapper.client).publish({
+      id: set.id,
+      title: set.title,
+      terms: set.terms,
+    })
     res.send(set);
   }
 );
