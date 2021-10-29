@@ -1,6 +1,9 @@
 import request from "supertest";
 import { app } from "../../app";
 import { Set } from "../../models/set";
+import mongoose from "mongoose";
+import {ViewOptions} from "../../view-settings";
+import { EditOptions } from "../../edit-settings";
 
 it("has a route handler listening to /api/sets for post requests", async () => {
   const response = await request(app).post("/api/sets").send({});
@@ -29,9 +32,16 @@ it("returns an error if an invalid title is provided", async () => {
     .set("Cookie", cookie)
     .send({
       title: "",
-      terms: [{term: "test term", definition: "test definition"}],
-      viewableBy: "everybody",
-      editableBy: "me"
+      terms: [{ term: "test term", definition: "test definition" }],
+      viewableBy: ViewOptions.Me,
+      editableBy: EditOptions.Me,
+      classes: [
+        {
+          class_id: new mongoose.Types.ObjectId().toHexString(),
+          title: "math 201",
+          school: "McGill",
+        },
+      ],
     })
     .expect(400);
 });
@@ -44,8 +54,15 @@ it("returns an error if an invalid term is provided", async () => {
     .send({
       title: "test title",
       terms: [],
-      viewableBy: "everybody",
-      editableBy: "me",
+      viewableBy: ViewOptions.Me,
+      editableBy: EditOptions.Me,
+      classes: [
+        {
+          class_id: new mongoose.Types.ObjectId().toHexString(),
+          title: "math 201",
+          school: "McGill",
+        },
+      ],
     })
     .expect(400);
 
@@ -61,7 +78,12 @@ it("returns an error if an invalid viewable is provided", async () => {
       title: "test title",
       terms: [{ term: "test term", definition: "test definition" }],
       viewableBy: "",
-      editableBy: "me",
+      editableBy: EditOptions.Me,
+      classes: [{
+        class_id: new mongoose.Types.ObjectId().toHexString(),
+        title: "math 201",
+        school: "McGill",
+      }],
     })
     .expect(400);
 
@@ -76,8 +98,16 @@ it("returns an error if an invalid editable is provided", async () => {
     .send({
       title: "test title",
       terms: [{ term: "test term", definition: "test definition" }],
-      viewableBy: "everyone",
+      viewableBy: ViewOptions.Me,
       editableBy: "",
+      folders: null,
+      classes: [
+        {
+          class_id: new mongoose.Types.ObjectId().toHexString(),
+          title: "math 201",
+          school: "McGill",
+        },
+      ],
     })
     .expect(400);
 
@@ -91,8 +121,11 @@ it("creates a set with valid inputs", async () => {
 
   const title = "test title";
   const terms = [{ term: "test term", definition: "test definition" }];
-  const viewableBy ="everyone";
-  const editableBy = "me";
+  const viewableBy = ViewOptions.Me;
+  const editableBy = EditOptions.Me;
+  const studiers = null;
+  const folders = null;
+  const classes = { class_id: new mongoose.Types.ObjectId().toHexString(), title: "math 201", school: "McGill" };
 
   const cookie = await global.signin();
 
@@ -103,11 +136,14 @@ it("creates a set with valid inputs", async () => {
       title,
       terms,
       viewableBy,
-      editableBy
+      editableBy,
+      folders,
+      classes,
     })
     .expect(201);
 
   sets = await Set.find({});
+  
   expect(sets.length).toEqual(1);
   expect(sets[0].viewableBy).toEqual(viewableBy);
   expect(sets[0].editableBy).toEqual(editableBy);

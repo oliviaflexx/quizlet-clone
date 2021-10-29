@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
-import { NotFoundError } from "@quizlet-clone/common";
+import { NotFoundError, NotAuthorizedError } from "@quizlet-clone/common";
 import { Set } from "../models/set";
+import {ViewOptions} from "../view-settings";
 
 const router = express.Router();
 
@@ -11,6 +12,11 @@ router.get("/api/sets/:id", async (req: Request, res: Response) => {
     throw new NotFoundError();
   }
 
+  if (set.viewableBy === ViewOptions.Me && set.creator !== req.currentUser!.id ) {
+    throw new NotAuthorizedError();
+  }
+
+  // Add checks for classes and password
   res.status(200).send(set);
 });
 

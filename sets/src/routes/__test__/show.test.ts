@@ -2,6 +2,13 @@ import request from "supertest";
 import { app } from "../../app";
 import mongoose from "mongoose";
 import { Set } from "../../models/set";
+import { ViewOptions } from "../../view-settings";
+import { EditOptions } from "../../edit-settings";
+
+let title = "test title";
+let terms = [{ term: "test term", definition: "test definition" }];
+let viewableBy = ViewOptions.Everyone;
+let editableBy = EditOptions.Me;
 
 it("returns a 404 if the set is not found", async () => {
   const id = new mongoose.Types.ObjectId().toHexString();
@@ -11,11 +18,6 @@ it("returns a 404 if the set is not found", async () => {
 
 
 it("returns the set if the set is found", async () => {
-  const title = "test title";
-  const terms = [{ term: "test term", definition: "test definition" }];
-  const viewableBy = "everyone";
-  const editableBy = "me";
-
   const cookie = await global.signin();
 
   const response = await request(app)

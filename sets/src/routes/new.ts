@@ -1,7 +1,9 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
-import { requireAuth, validateRequest } from "@quizlet-clone/common";
+import { requireAuth, validateRequest, BadRequestError} from "@quizlet-clone/common";
 import { Set } from "../models/set";
+import {ViewOptions} from "../view-settings";
+import { EditOptions } from "../edit-settings";
 
 const router = express.Router();
 
@@ -22,15 +24,30 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { title, terms, viewableBy, editableBy } = req.body;
+    const { title, terms, viewableBy, editableBy, studiers, folders, classes } = req.body;
 
+    const viewOptions = Object.values(ViewOptions);
+    const editOptions = Object.values(EditOptions);
+    if (viewOptions.includes(viewableBy) === false) {
+      throw new BadRequestError("Invalid input of viewableBy");
+    }
+     if (editOptions.includes(editableBy) === false) {
+       throw new BadRequestError("Invalid input of editableBy");
+     }
+
+  
     const set = Set.build({
       title,
       viewableBy,
       editableBy,
       creator: req.currentUser!.id,
-      terms
+      terms,
+      studiers,
+      folders,
+      classes,
+      dateCreated: new Date()
     });
+
     await set.save();
 
     res.status(201).send(set);

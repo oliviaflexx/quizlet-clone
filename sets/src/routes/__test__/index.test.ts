@@ -2,11 +2,13 @@ import request from "supertest";
 import { app } from "../../app";
 import mongoose from "mongoose";
 import { Set } from "../../models/set";
+import { ViewOptions } from "../../view-settings";
+import { EditOptions } from "../../edit-settings";
 
-const title = "test title";
-const terms = [{ term: "test term", definition: "test definition" }];
-const viewableBy = "everyone";
-const editableBy = "me";
+let title = "test title";
+let terms = [{ term: "test term", definition: "test definition" }];
+let viewableBy = ViewOptions.Everyone;
+let editableBy = EditOptions.Me;
 
 
 
