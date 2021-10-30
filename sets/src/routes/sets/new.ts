@@ -1,20 +1,19 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import { requireAuth, validateRequest, BadRequestError} from "@quizlet-clone/common";
-import { Set } from "../models/set";
-import {ViewOptions} from "../view-settings";
-import { EditOptions } from "../edit-settings";
-import { SetCreatedPublisher } from "../events/publishers/set-created-publisher";
-import { natsWrapper } from "../nats-wrapper";
+import { Set } from "../../models/set";
+import {ViewOptions} from "../../view-settings";
+import { EditOptions } from "../../edit-settings";
+import { SetCreatedPublisher } from "../../events/publishers/set-created-publisher";
+import { natsWrapper } from "../../nats-wrapper";
 
 const router = express.Router();
 
 router.post(
-  "/api/sets",
+  "/api/sets/set",
   requireAuth,
   [
     body("title").not().isEmpty().withMessage("Title is required"),
-    body("terms").not().isEmpty().withMessage("Terms are required"),
     body("viewableBy")
       .not()
       .isEmpty()
@@ -26,37 +25,36 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { title, terms, viewableBy, editableBy, studiers, folders, classes } = req.body;
+    const { title, viewableBy, editableBy, studiers, folders, classes } = req.body;
 
     const viewOptions = Object.values(ViewOptions);
-    const editOptions = Object.values(EditOptions);
     if (viewOptions.includes(viewableBy) === false) {
       throw new BadRequestError("Invalid input of viewableBy");
     }
+
+     const editOptions = Object.values(EditOptions);
      if (editOptions.includes(editableBy) === false) {
        throw new BadRequestError("Invalid input of editableBy");
      }
 
-  
     const set = Set.build({
       title,
       viewableBy,
       editableBy,
       creator: req.currentUser!.id,
-      terms,
       studiers,
       folders,
       classes,
-      dateCreated: new Date()
+      dateCreated: new Date(),
     });
 
     await set.save();
 
     await new SetCreatedPublisher(natsWrapper.client).publish({
       id: set.id,
-      title: set.title,
-      terms: set.terms
-    })
+      title: set.title
+    });
+
     res.status(201).send(set);
 
   }

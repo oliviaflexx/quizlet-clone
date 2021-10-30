@@ -3,10 +3,12 @@ import "express-async-errors";
 import { json } from "body-parser";
 import cookieSession from "cookie-session";
 import { errorHandler, NotFoundError, currentUser } from "@quizlet-clone/common";
-import {createSetRouter} from "./routes/new";
-import { showSetRouter } from "./routes/show";
-import { indexSetRouter } from "./routes/index";
-import { updateSetRouter } from "./routes/update";
+import {createSetRouter} from "./routes/sets/new";
+import { showSetRouter } from "./routes/sets/show";
+import { indexSetRouter } from "./routes/sets/index";
+import { updateSetRouter } from "./routes/sets/update";
+import { createTermRouter } from "./routes/terms/new";
+import { updateTermRouter } from "./routes/terms/update";
 
 const app = express();
 app.set("trust proxy", true);
@@ -24,6 +26,9 @@ app.use(createSetRouter);
 app.use(showSetRouter);
 app.use(indexSetRouter);
 app.use(updateSetRouter);
+app.use(createTermRouter);
+app.use(updateTermRouter);
+
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();

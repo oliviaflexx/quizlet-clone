@@ -1,12 +1,12 @@
 import express, { Request, Response } from "express";
 import { NotFoundError, NotAuthorizedError } from "@quizlet-clone/common";
-import { Set } from "../models/set";
-import {ViewOptions} from "../view-settings";
+import { Set } from "../../models/set";
+import {ViewOptions} from "../../view-settings";
 
 const router = express.Router();
 
-router.get("/api/sets/:id", async (req: Request, res: Response) => {
-  const set = await Set.findById(req.params.id);
+router.get("/api/sets/set/:id", async (req: Request, res: Response) => {
+  const set = await Set.findById(req.params.id).populate('terms');
 
   if (!set) {
     throw new NotFoundError();

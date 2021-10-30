@@ -8,23 +8,25 @@ import {
   BadRequestError
 } from "@quizlet-clone/common";
 
-import { Set } from '../models/set';
-import { ViewOptions } from "../view-settings";
-import { SetUpdatedPublisher } from "../events/publishers/set-updated-publisher";
-import { natsWrapper } from "../nats-wrapper";
+import { Set } from '../../models/set';
+import { ViewOptions } from "../../view-settings";
+import { SetUpdatedPublisher } from "../../events/publishers/set-updated-publisher";
+import { natsWrapper } from "../../nats-wrapper";
 
 const router = express.Router();
 
 router.put(
-  "/api/sets/:id",
+  "/api/sets/set/:id",
   requireAuth,
   [
-    body("title").not().isEmpty().withMessage("Title is required"),
-    body("terms").not().isEmpty().withMessage("Terms are required")
+    body("title")
+      .not()
+      .isEmpty()
+      .withMessage("Title is required"),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-      const { title, terms } = req.body;
+    const { title } = req.body;
 
     const set = await Set.findById(req.params.id);
 
@@ -35,29 +37,25 @@ router.put(
     if (set.creator !== req.currentUser!.id) {
       throw new NotAuthorizedError();
     }
+    // calculate new rating
 
-    set.set({
-      title,
-      terms
-    });
+    set.set({ title });
 
     await set.save();
-
     await new SetUpdatedPublisher(natsWrapper.client).publish({
       id: set.id,
       title: set.title,
-      terms: set.terms,
-    })
+      termId: null,
+    });
+
     res.send(set);
   }
 );
 
 router.put(
-  "/api/sets/rating/:id",
+  "/api/sets/set/rating/:id",
   requireAuth,
-  [
-    body("rating").not().isEmpty().withMessage("Rating is required"),
-  ],
+  [body("rating").not().isEmpty().withMessage("Rating is required")],
   validateRequest,
   async (req: Request, res: Response) => {
     const { rating } = req.body;
@@ -68,19 +66,18 @@ router.put(
       throw new NotFoundError();
     }
 
-     if (set.creator == req.currentUser!.id) {
-       throw new NotAuthorizedError();
-     }
+    if (set.creator == req.currentUser!.id) {
+      throw new NotAuthorizedError();
+    }
     // calculate new rating
     if (set.rating.totalRaters === 0) {
-       set.set({
-         rating: {
-           average: rating,
-           totalRaters: 1
-         }
-       });
-    }
-    else {
+      set.set({
+        rating: {
+          average: rating,
+          totalRaters: 1,
+        },
+      });
+    } else {
       const set_rating =
         (set.rating.totalRaters * set.rating.average + rating) /
         (set.rating.totalRaters + 1);
@@ -88,8 +85,8 @@ router.put(
       set.set({
         rating: {
           average: set_rating,
-          totalRaters: set.rating.totalRaters + 1
-        }
+          totalRaters: set.rating.totalRaters + 1,
+        },
       });
     }
 
@@ -101,7 +98,7 @@ router.put(
 
 
 router.put(
-  "/api/sets/view/:id",
+  "/api/sets/set/view/:id",
   requireAuth,
   [
     body("viewableBy")
@@ -119,18 +116,18 @@ router.put(
       throw new NotFoundError();
     }
 
- const viewOptions = Object.values(ViewOptions);
+    const viewOptions = Object.values(ViewOptions);
 
- if (viewOptions.includes(viewableBy) === false) {
-   throw new BadRequestError("Invalid input of viewableBy");
- }
+    if (viewOptions.includes(viewableBy) === false) {
+      throw new BadRequestError("Invalid input of viewableBy");
+    }
 
-      if (set.creator !== req.currentUser!.id) {
-        throw new NotAuthorizedError();
-      }
+    if (set.creator !== req.currentUser!.id) {
+      throw new NotAuthorizedError();
+    }
     // calculate new rating
 
-    set.set({viewableBy});
+    set.set({ viewableBy });
 
     await set.save();
 
@@ -139,7 +136,7 @@ router.put(
 );
 
 router.put(
-  "/api/sets/edit/:id",
+  "/api/sets/set/edit/:id",
   requireAuth,
   [
     body("editableBy")

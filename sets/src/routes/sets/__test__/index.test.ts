@@ -1,9 +1,9 @@
 import request from "supertest";
-import { app } from "../../app";
+import { app } from "../../../app";
 import mongoose from "mongoose";
-import { Set } from "../../models/set";
-import { ViewOptions } from "../../view-settings";
-import { EditOptions } from "../../edit-settings";
+import { Set } from "../../../models/set";
+import { ViewOptions } from "../../../view-settings";
+import { EditOptions } from "../../../edit-settings";
 
 let title = "test title";
 let terms = [{ term: "test term", definition: "test definition" }];
@@ -14,11 +14,10 @@ let editableBy = EditOptions.Me;
 
 const createSet = async () => {
 return request(app)
-  .post("/api/sets")
+  .post("/api/sets/set")
   .set("Cookie", await global.signin())
   .send({
     title,
-    terms,
     viewableBy,
     editableBy,
   });
@@ -30,7 +29,6 @@ it('can fetch a list of tickets', async () => {
     await createSet();
     await createSet();
 
-    const response = await request(app).get('/api/sets').send().expect(200);
-
+    const response = await request(app).get('/api/sets/set').send();
     expect(response.body.length).toEqual(3);
 });

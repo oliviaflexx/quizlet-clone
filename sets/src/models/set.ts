@@ -1,11 +1,7 @@
 import mongoose, { mongo } from "mongoose";
 import {ViewOptions} from "../view-settings";
 import { EditOptions } from "../edit-settings";
-
-interface TermAttrs {
-  term: string,
-  definition: string
-}
+import { TermDoc } from './term';
 
 interface StudierAttrs {
   studier_id: string;
@@ -32,9 +28,8 @@ interface ClassAttrs {
 interface SetAttrs {
   title: string;
   creator: string;
-  viewableBy: string;
+  viewableBy: ViewOptions;
   editableBy: string;
-  terms: TermAttrs[] | null;
   dateCreated: Date;
   studiers: StudierAttrs[] | null;
   folders: FolderAttrs[] | null;
@@ -47,7 +42,7 @@ interface SetDoc extends mongoose.Document {
   viewableBy: ViewOptions;
   editableBy: EditOptions;
   rating: RatingAttrs;
-  terms: TermAttrs[];
+  terms: TermDoc[];
   dateCreated: Date;
   studiers: StudierAttrs[];
   folders: FolderAttrs[];
@@ -57,27 +52,6 @@ interface SetDoc extends mongoose.Document {
 interface SetModel extends mongoose.Model<SetDoc> {
   build(attrs: SetAttrs): SetDoc;
 }
-
-const termSchema = new mongoose.Schema(
-  {
-    term: {
-      type: String,
-      required: true,
-    },
-    definition: {
-      type: String,
-      required: true,
-    },
-  },
-  {
-    toJSON: {
-      transform(doc, ret) {
-        ret.id = ret._id;
-        delete ret._id;
-      },
-    },
-  }
-);
 
 const setSchema = new mongoose.Schema(
   {
@@ -92,12 +66,7 @@ const setSchema = new mongoose.Schema(
     viewableBy: {
       type: String,
       required: true,
-      enum: [
-        ViewOptions.Everyone,
-        ViewOptions.Classes,
-        ViewOptions.Password,
-        ViewOptions.Me,
-      ],
+      enum: Object.values(ViewOptions),
     },
     editableBy: {
       type: String,
@@ -114,7 +83,12 @@ const setSchema = new mongoose.Schema(
         default: 0,
       },
     },
-    terms: [termSchema],
+    terms: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Term',
+      },
+    ],
     dateCreated: {
       type: Date,
       required: true,
