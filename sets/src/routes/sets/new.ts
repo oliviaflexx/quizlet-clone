@@ -52,7 +52,8 @@ router.post(
 
     await new SetCreatedPublisher(natsWrapper.client).publish({
       id: set.id,
-      title: set.title
+      title: set.title,
+      creator: set.creator
     });
 
     res.status(201).send(set);
