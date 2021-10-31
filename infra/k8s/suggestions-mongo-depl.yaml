@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: suggestions-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: suggestions-mongo
+  template:
+    metadata:
+      labels:
+        app: suggestions-mongo
+    spec:
+      containers:
+        - name: suggestions-mongo
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: suggestions-mongo-srv
+spec:
+  selector:
+    app: suggestions-mongo
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

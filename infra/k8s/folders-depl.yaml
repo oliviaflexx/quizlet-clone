@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: folders-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: folders
+  template:
+    metadata:
+      labels:
+        app: folders
+    spec:
+      containers:
+        - name: folders
+          image: us.gcr.io/quizlet-330213/folders
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: quizlet-clone
+            - name: MONGO_URI
+              value: 'mongodb://sets-mongo-srv:27017/folders'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: folders-srv
+spec:
+  selector:
+    app: folders
+  ports:
+    - name: folders
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

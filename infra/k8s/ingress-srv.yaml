@@ -1,0 +1,47 @@
+# apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: quizlet.dev
+    - http:
+        paths:
+          - path: /api/auth/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-srv
+                port:
+                  number: 3000
+          - path: /api/sets/?(.*)
+            pathType: Prefix
+            backend:
+              service: 
+                name: sets-srv
+                port:
+                  number: 3000
+          - path: /api/suggestions/?(.*)
+            pathType: Prefix
+            backend:
+              service: 
+                name: suggestions-srv
+                port:
+                  number: 3000
+          - path: /api/folders/?(.*)
+            pathType: Prefix
+            backend:
+              service: 
+                name: folders-srv
+                port:
+                  number: 3000
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service: 
+                name: client-srv
+                port:
+                  number: 3000
