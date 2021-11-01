@@ -20,7 +20,6 @@ if (!process.env.NATS_URL) {
 if (!process.env.NATS_CLUSTER_ID) {
   throw new Error("NATS_CLUSTER_ID must be defined");
 }
-  try {
     await natsWrapper.connect(
       process.env.NATS_CLUSTER_ID,
       process.env.NATS_CLIENT_ID,
@@ -39,9 +38,6 @@ if (!process.env.NATS_CLUSTER_ID) {
       useCreateIndex: true,
     });
     console.log("Connected to MongoDb");
-  } catch (err) {
-    console.error(err);
-  }
 
   app.listen(3000, () => {
     console.log("Listening on port 3000!!!!!!!!");
