@@ -12,23 +12,23 @@ router.get(
     const { term, definition } = req.body;
 
     // TESTING PURPOSES ONLY
-    await Term.build({
-      term: "approach",
-      definition: "this is the definition for approach",
-      term_id: new mongoose.Types.ObjectId().toHexString()
-    }).save();
+    // await Term.build({
+    //   term: "approach",
+    //   definition: "this is the definition for approach",
+    //   term_id: new mongoose.Types.ObjectId().toHexString()
+    // }).save();
 
-    await Term.build({
-      term: "appeal",
-      definition: "this is the definition for appeal",
-      term_id: new mongoose.Types.ObjectId().toHexString(),
-    }).save();
+    // await Term.build({
+    //   term: "appeal",
+    //   definition: "this is the definition for appeal",
+    //   term_id: new mongoose.Types.ObjectId().toHexString(),
+    // }).save();
 
-    await Term.build({
-      term: "apathy",
-      definition: "this is the definition for apathy",
-      term_id: new mongoose.Types.ObjectId().toHexString(),
-    }).save();
+    // await Term.build({
+    //   term: "apathy",
+    //   definition: "this is the definition for apathy",
+    //   term_id: new mongoose.Types.ObjectId().toHexString(),
+    // }).save();
 
     // const allTerms = await Term.find({});
     // console.log(allTerms);

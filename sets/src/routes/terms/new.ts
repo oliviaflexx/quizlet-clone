@@ -43,12 +43,14 @@ validateRequest,
 
     await new TermCreatedPublisher(natsWrapper.client).publish({
       id: newTerm.id,
+      version: newTerm.version,
       term: newTerm.term,
       definition: newTerm.definition,
     });
 
     await new SetUpdatedPublisher(natsWrapper.client).publish({
       id: set.id,
+      version: set.version,
       title: set.title,
       termId: newTerm.id,
     });

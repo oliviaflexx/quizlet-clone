@@ -52,6 +52,7 @@ router.put(
 
     await new TermUpdatedPublisher(natsWrapper.client).publish({
       id: foundTerm.id,
+      version: foundTerm.version,
       term: foundTerm.term,
       definition: foundTerm.definition,
     });

@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 import { app } from "./app";
 import { natsWrapper } from "./nats-wrapper";
+import { TermCreatedListener } from './events/listeners/term-created-listener';
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -32,6 +33,8 @@ if (!process.env.NATS_CLUSTER_ID) {
     });
     process.on("SIGINT", () => natsWrapper.client.close());
     process.on("SIGTERM", () => natsWrapper.client.close());
+    
+    new TermCreatedListener(natsWrapper.client).listen();
     
     await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,

@@ -44,6 +44,7 @@ router.put(
     await set.save();
     await new SetUpdatedPublisher(natsWrapper.client).publish({
       id: set.id,
+      version: set.version,
       title: set.title,
       termId: null,
     });
@@ -92,6 +93,13 @@ router.put(
 
     await set.save();
 
+    await new SetUpdatedPublisher(natsWrapper.client).publish({
+      id: set.id,
+      version: set.version,
+      title: set.title,
+      termId: null,
+    });
+
     res.send(set);
   }
 );
@@ -131,6 +139,13 @@ router.put(
 
     await set.save();
 
+    await new SetUpdatedPublisher(natsWrapper.client).publish({
+      id: set.id,
+      version: set.version,
+      title: set.title,
+      termId: null,
+    });
+
     res.send(set);
   }
 );
@@ -159,6 +174,12 @@ router.put(
     }
     set.set({ editableBy });
 
+    await new SetUpdatedPublisher(natsWrapper.client).publish({
+      id: set.id,
+      version: set.version,
+      title: set.title,
+      termId: null,
+    });
     await set.save();
 
     res.send(set);

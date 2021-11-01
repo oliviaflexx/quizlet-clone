@@ -53,6 +53,7 @@ router.post(
     await new SetCreatedPublisher(natsWrapper.client).publish({
       id: set.id,
       title: set.title,
+      version: set.version,
       creator: set.creator
     });
 

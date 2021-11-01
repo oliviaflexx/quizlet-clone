@@ -1,4 +1,5 @@
 import mongoose, { mongo } from "mongoose";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface FolderAttrs {
   title: string;
@@ -8,6 +9,7 @@ interface FolderAttrs {
 
 interface FolderDoc extends mongoose.Document {
   title: string;
+  version: number;
   creator: string;
   dateCreated: Date;
   sets: [{
@@ -54,6 +56,9 @@ const folderSchema = new mongoose.Schema(
     },
   }
 );
+
+folderSchema.set('versionKey', 'version');
+folderSchema.plugin(updateIfCurrentPlugin);
 
 folderSchema.statics.build = (attrs: FolderAttrs) => {
   return new Folder(attrs);

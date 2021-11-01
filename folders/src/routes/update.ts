@@ -43,6 +43,7 @@ router.put(
       await new FolderUpdatedPublisher(natsWrapper.client).publish({
         id: folder.id,
         title: folder.title,
+        version: folder.version,
         setId: folder.sets[folder.sets.length - 1].set_id,
       });
     }

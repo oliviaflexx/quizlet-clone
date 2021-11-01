@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface TermAttrs {
   term: string;
@@ -8,6 +9,7 @@ interface TermAttrs {
 export interface TermDoc extends mongoose.Document {
   term: string;
   definition: string;
+  version: number;
 }
 
 interface TermModel extends mongoose.Model<TermDoc> {
@@ -34,6 +36,9 @@ const termSchema = new mongoose.Schema(
     },
   }
 );
+
+termSchema.set('versionKey', 'version');
+termSchema.plugin(updateIfCurrentPlugin);
 
 termSchema.statics.build = (attrs: TermAttrs) => {
   return new Term(attrs);

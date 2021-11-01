@@ -1,4 +1,5 @@
 import mongoose, { mongo } from "mongoose";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 import {ViewOptions} from "../view-settings";
 import { EditOptions } from "../edit-settings";
 import { TermDoc } from './term';
@@ -39,6 +40,7 @@ interface SetAttrs {
 interface SetDoc extends mongoose.Document {
   title: string;
   creator: string;
+  version: number;
   viewableBy: ViewOptions;
   editableBy: EditOptions;
   rating: RatingAttrs;
@@ -123,6 +125,9 @@ const setSchema = new mongoose.Schema(
     },
   }
 );
+
+setSchema.set('versionKey', 'version');
+setSchema.plugin(updateIfCurrentPlugin);
 
 setSchema.statics.build = (attrs: SetAttrs) => {
   return new Set(attrs);

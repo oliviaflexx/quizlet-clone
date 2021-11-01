@@ -1,15 +1,16 @@
 import mongoose, { mongo } from "mongoose";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface TermAttrs {
+    id: string;
     term: string,
-    definition: string
-    term_id: string
+    definition: string;
 }
 
 interface TermDoc extends mongoose.Document {
   term: string;
+  version: number;
   definition: string;
-  term_id: string;
 }
 
 interface TermModel extends mongoose.Model<TermDoc> {
@@ -25,11 +26,7 @@ const termSchema = new mongoose.Schema(
     definition: {
       type: String,
       required: true,
-    },
-    term_id: {
-      type: String,
-      required: true,
-    },
+    }
   },
   {
     toJSON: {
@@ -41,10 +38,15 @@ const termSchema = new mongoose.Schema(
   }
 );
 
-// termSchema.index({term: 'text', definition: 'text'});
+termSchema.set("versionKey", "version");
+termSchema.plugin(updateIfCurrentPlugin);
 
 termSchema.statics.build = (attrs: TermAttrs) => {
-    return new Term(attrs);
+    return new Term({
+      _id: attrs.id,
+      term: attrs.term,
+      definition: attrs.definition
+    });
 }
 
 const Term = mongoose.model<TermDoc, TermModel>('Term', termSchema);
