@@ -28,7 +28,8 @@ interface ClassAttrs {
 
 interface SetAttrs {
   title: string;
-  creator: string;
+  creatorId: string;
+  creatorName: string,
   viewableBy: ViewOptions;
   editableBy: string;
   dateCreated: Date;
@@ -39,7 +40,8 @@ interface SetAttrs {
 
 interface SetDoc extends mongoose.Document {
   title: string;
-  creator: string;
+  creatorId: string;
+  creatorName: string;
   version: number;
   viewableBy: ViewOptions;
   editableBy: EditOptions;
@@ -61,9 +63,13 @@ const setSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    creator: {
+    creatorId: {
       type: String,
       required: true,
+    },
+    creatorName: {
+      type: String,
+      required: true
     },
     viewableBy: {
       type: String,
@@ -88,7 +94,7 @@ const setSchema = new mongoose.Schema(
     terms: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Term',
+        ref: "Term",
       },
     ],
     dateCreated: {

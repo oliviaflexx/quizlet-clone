@@ -34,7 +34,7 @@ router.put(
       throw new NotFoundError();
     }
 
-    if (set.creator !== req.currentUser!.id) {
+    if (set.creatorId !== req.currentUser!.id) {
       throw new NotAuthorizedError();
     }
     // calculate new rating
@@ -46,7 +46,8 @@ router.put(
       id: set.id,
       version: set.version,
       title: set.title,
-      termId: null,
+      term_amount: set.terms.length,
+      termId: undefined,
     });
 
     res.send(set);
@@ -67,7 +68,7 @@ router.put(
       throw new NotFoundError();
     }
 
-    if (set.creator == req.currentUser!.id) {
+    if (set.creatorId == req.currentUser!.id) {
       throw new NotAuthorizedError();
     }
     // calculate new rating
@@ -97,7 +98,8 @@ router.put(
       id: set.id,
       version: set.version,
       title: set.title,
-      termId: null,
+      termId: undefined,
+      term_amount: set.terms.length
     });
 
     res.send(set);
@@ -130,7 +132,7 @@ router.put(
       throw new BadRequestError("Invalid input of viewableBy");
     }
 
-    if (set.creator !== req.currentUser!.id) {
+    if (set.creatorId !== req.currentUser!.id) {
       throw new NotAuthorizedError();
     }
     // calculate new rating
@@ -143,7 +145,8 @@ router.put(
       id: set.id,
       version: set.version,
       title: set.title,
-      termId: null,
+      termId: undefined,
+      term_amount: set.terms.length
     });
 
     res.send(set);
@@ -169,7 +172,7 @@ router.put(
       throw new NotFoundError();
     }
 
-    if (set.creator !== req.currentUser!.id) {
+    if (set.creatorId !== req.currentUser!.id) {
       throw new NotAuthorizedError();
     }
     set.set({ editableBy });
@@ -178,7 +181,8 @@ router.put(
       id: set.id,
       version: set.version,
       title: set.title,
-      termId: null,
+      termId: undefined,
+      term_amount: set.terms.length,
     });
     await set.save();
 

@@ -31,7 +31,7 @@ validateRequest,
       throw new NotFoundError();
     }
 
-    if (set.creator !== req.currentUser!.id) {
+    if (set.creatorId !== req.currentUser!.id) {
       throw new NotAuthorizedError();
     }
 
@@ -46,6 +46,7 @@ validateRequest,
       version: newTerm.version,
       term: newTerm.term,
       definition: newTerm.definition,
+      set_id: set.id
     });
 
     await new SetUpdatedPublisher(natsWrapper.client).publish({
@@ -53,6 +54,7 @@ validateRequest,
       version: set.version,
       title: set.title,
       termId: newTerm.id,
+      term_amount: set.terms.length,
     });
 
     res.status(201).send(newTerm);

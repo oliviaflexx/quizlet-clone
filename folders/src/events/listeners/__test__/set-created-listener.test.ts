@@ -1,20 +1,20 @@
 import { Message } from "node-nats-streaming";
-import mongoose from "mongoose";
-import { TermCreatedEvent } from "@quizlet-clone/common";
-import { TermCreatedListener } from "../term-created-listener";
+import mongoose, { set } from "mongoose";
+import { SetCreatedEvent } from "@quizlet-clone/common";
+import { SetCreatedListener } from "../set-created-listener";
 import { natsWrapper } from "../../../nats-wrapper";
-import { Term } from "../../../models/term";
+import { Set } from "../../../models/set";
 
 const setup = async () => {
   // create an instance of the listener
-  const listener = new TermCreatedListener(natsWrapper.client);
+  const listener = new SetCreatedListener(natsWrapper.client);
 
   // create a fake data event
-  const data: TermCreatedEvent["data"] = {
+  const data: SetCreatedEvent["data"] = {
     version: 0,
     id: new mongoose.Types.ObjectId().toHexString(),
-    term: "test term",
-    definition: "test definition",
+    title: "test title",
+    creator: "oliviaflexx"
   };
 
   // create a fake message object
@@ -26,18 +26,17 @@ const setup = async () => {
   return { listener, data, msg };
 };
 
-it("creates and saves a term", async () => {
+it("creates and saves a set", async () => {
   const { listener, data, msg } = await setup();
 
   // call the onMessage function with the data object + message object
-    await listener.onMessage(data, msg);
+  await listener.onMessage(data, msg);
 
-  // write assertions to make sure a set was created!
-  const term = await Term.findById(data.id);
+    const set = await Set.findById(data.id);
 
-  expect(term).toBeDefined();
-  expect(term!.term).toEqual(data.term);
-  expect(term!.definition).toEqual(data.definition);
+  expect(set).toBeDefined();
+  expect(set!.creator).toEqual(data.creator);
+  expect(set!.version).toEqual(0);
 });
 
 it("acks the message", async () => {

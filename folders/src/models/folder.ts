@@ -1,23 +1,22 @@
 import mongoose, { mongo } from "mongoose";
 import { updateIfCurrentPlugin } from "mongoose-update-if-current";
+import { SetDoc } from "./set";
 
 interface FolderAttrs {
   title: string;
-  creator: string;
+  creatorId: string;
+  creatorName: string;
   dateCreated: Date;
 }
+
 
 interface FolderDoc extends mongoose.Document {
   title: string;
   version: number;
-  creator: string;
+  creatorId: string;
+  creatorName: string;
   dateCreated: Date;
-  sets: [{
-    set_id: string,
-    title: string,
-    creator: string,
-    terms: number,
-  }]
+  sets: SetDoc[];
 }
 
 interface FolderModel extends mongoose.Model<FolderDoc> {
@@ -30,22 +29,24 @@ const folderSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    creator: {
+    creatorId: {
+      type: String,
+      required: true,
+    },
+    creatorName: {
       type: String,
       required: true,
     },
     sets: [
       {
-          set_id: String,
-          title: String,
-          creator: String,
-          terms: Number
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Set",
       },
     ],
     dateCreated: {
       type: Date,
       required: true,
-    }
+    },
   },
   {
     toJSON: {

@@ -23,7 +23,8 @@ router.post(
 
     const folder = Folder.build({
       title,
-      creator: req.currentUser!.id,
+      creatorId: req.currentUser!.id,
+      creatorName: req.currentUser!.name,
       dateCreated: new Date(),
     });
 
@@ -33,8 +34,9 @@ router.post(
       id: folder.id,
       version: folder.version,
       title: folder.title,
-      creator: folder.creator
+      creator: folder.creatorName
     });
+    
 
     res.status(201).send(folder);
   }

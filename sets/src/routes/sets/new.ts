@@ -41,7 +41,8 @@ router.post(
       title,
       viewableBy,
       editableBy,
-      creator: req.currentUser!.id,
+      creatorId: req.currentUser!.id,
+      creatorName: req.currentUser!.name,
       studiers,
       folders,
       classes,
@@ -54,7 +55,7 @@ router.post(
       id: set.id,
       title: set.title,
       version: set.version,
-      creator: set.creator
+      creator: set.creatorName
     });
 
     res.status(201).send(set);
