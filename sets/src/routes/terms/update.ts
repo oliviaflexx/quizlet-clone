@@ -33,7 +33,7 @@ router.put(
       throw new NotFoundError();
     }
 
-    if (set.creator !== req.currentUser!.id) {
+    if (set.creatorId !== req.currentUser!.id) {
       throw new NotAuthorizedError();
     }
 

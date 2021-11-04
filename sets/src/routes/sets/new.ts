@@ -25,7 +25,7 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { title, viewableBy, editableBy, studiers, folders, classes } = req.body;
+    const { title, viewableBy, editableBy } = req.body;
 
     const viewOptions = Object.values(ViewOptions);
     if (viewOptions.includes(viewableBy) === false) {
@@ -43,9 +43,6 @@ router.post(
       editableBy,
       creatorId: req.currentUser!.id,
       creatorName: req.currentUser!.name,
-      studiers,
-      folders,
-      classes,
       dateCreated: new Date(),
     });
 

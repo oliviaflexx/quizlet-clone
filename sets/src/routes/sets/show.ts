@@ -12,7 +12,7 @@ router.get("/api/sets/set/:id", async (req: Request, res: Response) => {
     throw new NotFoundError();
   }
 
-  if (set.viewableBy === ViewOptions.Me && set.creator !== req.currentUser!.id ) {
+  if (set.viewableBy === ViewOptions.Me && set.creatorId !== req.currentUser!.id ) {
     throw new NotAuthorizedError();
   }
 

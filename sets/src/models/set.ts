@@ -4,26 +4,9 @@ import {ViewOptions} from "../view-settings";
 import { EditOptions } from "../edit-settings";
 import { TermDoc } from './term';
 
-interface StudierAttrs {
-  studier_id: string;
-  name: string;
-}
-
 interface RatingAttrs {
   average: number;
   totalRaters: number;
-}
-
-interface FolderAttrs {
-  folder_id: string;
-  title: string;
-  creator: string;
-}
-
-interface ClassAttrs {
-  class_id: string;
-  title: string;
-  school: string;
 }
 
 interface SetAttrs {
@@ -33,9 +16,6 @@ interface SetAttrs {
   viewableBy: ViewOptions;
   editableBy: string;
   dateCreated: Date;
-  studiers: StudierAttrs[] | null;
-  folders: FolderAttrs[] | null;
-  classes: ClassAttrs[] | null;
 };
 
 interface SetDoc extends mongoose.Document {
@@ -48,9 +28,7 @@ interface SetDoc extends mongoose.Document {
   rating: RatingAttrs;
   terms: TermDoc[];
   dateCreated: Date;
-  studiers: StudierAttrs[];
-  folders: FolderAttrs[];
-  classes: ClassAttrs[];
+
 }
 
 interface SetModel extends mongoose.Model<SetDoc> {
@@ -101,26 +79,6 @@ const setSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
-    studiers: [
-      {
-        studier_id: String,
-        name: String,
-      },
-    ],
-    folders: [
-      {
-        folder_id: String,
-        title: String,
-        creator: String,
-      },
-    ],
-    classes: [
-      {
-        class_id: String,
-        title: String,
-        school: String,
-      },
-    ],
   },
   {
     toJSON: {
