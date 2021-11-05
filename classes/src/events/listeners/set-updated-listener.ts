@@ -1,6 +1,5 @@
 import { Message } from "node-nats-streaming";
 import { Subjects, Listener, SetUpdatedEvent, NotFoundError } from "@quizlet-clone/common";
-import { FolderUpdatedPublisher } from "../publishers/folder-updated-publisher";
 import { queueGroupName } from "./queue-group-name";
 import { Set } from "../../models/set";
 import { natsWrapper } from "../../nats-wrapper";
@@ -21,15 +20,16 @@ export class SetUpdatedListener extends Listener<SetUpdatedEvent> {
       throw new NotFoundError();
 
     } else if (termId) {
+      
       set.set({ num_of_terms: term_amount });
 
       await set.save();
 
     } else {
+
       set.set({ title: title });
       await set.save();
     }
-
 
     msg.ack();
   }

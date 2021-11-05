@@ -44,6 +44,14 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
+    - image: us.gcr.io/quizlet-330213/classes
+      context: classes
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.js'
+            dest: .
     - image: us.gcr.io/quizlet-330213/folders
       context: folders
       docker:

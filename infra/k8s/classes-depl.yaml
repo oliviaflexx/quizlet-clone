@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: classes-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: classes
+  template:
+    metadata:
+      labels:
+        app: classes
+    spec:
+      containers:
+        - name: classes
+          image: us.gcr.io/quizlet-330213/classes
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: quizlet-clone
+            - name: MONGO_URI
+              value: 'mongodb://sets-mongo-srv:27017/classes'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: classes-srv
+spec:
+  selector:
+    app: classes
+  ports:
+    - name: classes
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
