@@ -7,6 +7,9 @@ import {
   NotFoundError,
   currentUser,
 } from "@quizlet-clone/common";
+import {createClassRouter} from "./routes/new";
+import { showClassRouter } from "./routes/show";
+import { updateClassRouter } from "./routes/update";
 
 const app = express();
 app.set("trust proxy", true);
@@ -20,7 +23,9 @@ app.use(
 app.use(currentUser);
 
 //routes will go here
-
+app.use(updateClassRouter);
+app.use(showClassRouter);
+app.use(createClassRouter);
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();

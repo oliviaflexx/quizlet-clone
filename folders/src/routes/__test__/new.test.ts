@@ -26,7 +26,7 @@ it(" returns error if input is invalid", async () => {
   expect(response.status).toEqual(400);
 });
 
-it(" it returns the folder error if successfully created", async () => {
+it(" it returns the folder if successfully created", async () => {
   const cookie = await global.signin();
   const response = await request(app)
     .post("/api/folders")

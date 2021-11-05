@@ -9,6 +9,7 @@ interface ClassAttrs {
   adminName: string;
   dateCreated: Date;
   school: string;
+  link: string;
 }
 
 interface ClassDoc extends mongoose.Document {
@@ -21,6 +22,7 @@ interface ClassDoc extends mongoose.Document {
   folders: FolderDoc[];
   school: string;
   members: string[];
+  link: string;
 }
 
 interface ClassModel extends mongoose.Model<ClassDoc> {
@@ -30,6 +32,14 @@ interface ClassModel extends mongoose.Model<ClassDoc> {
 const classSchema = new mongoose.Schema(
   {
     title: {
+      type: String,
+      required: true,
+    },
+    school: {
+      type: String,
+      required: true,
+    },
+    link: {
       type: String,
       required: true,
     },
@@ -54,9 +64,9 @@ const classSchema = new mongoose.Schema(
       },
     ],
     members: [
-        {
-            type: String
-        }
+      {
+        type: String,
+      },
     ],
     dateCreated: {
       type: Date,
