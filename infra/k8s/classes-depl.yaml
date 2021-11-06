@@ -25,7 +25,7 @@ spec:
             - name: NATS_CLUSTER_ID
               value: quizlet-clone
             - name: MONGO_URI
-              value: 'mongodb://sets-mongo-srv:27017/classes'
+              value: 'mongodb://classes-mongo-srv:27017/classes'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:

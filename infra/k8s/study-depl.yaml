@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: suggestions-depl
+  name: study-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: suggestions
+      app: study
   template:
     metadata:
       labels:
-        app: suggestions
+        app: study
     spec:
       containers:
-        - name: suggestions
-          image: us.gcr.io/quizlet-330213/suggestions
+        - name: study
+          image: us.gcr.io/quizlet-330213/study
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
@@ -25,7 +25,7 @@ spec:
             - name: NATS_CLUSTER_ID
               value: quizlet-clone
             - name: MONGO_URI
-              value: 'mongodb://suggestions-mongo-srv:27017/suggestions'
+              value: 'mongodb://study-mongo-srv:27017/study'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
@@ -35,12 +35,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: suggestions-srv
+  name: study-srv
 spec:
   selector:
-    app: suggestions
+    app: study
   ports:
-    - name: suggestions
+    - name: study
       protocol: TCP
       port: 3000
       targetPort: 3000

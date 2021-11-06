@@ -60,3 +60,11 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
+    - image: us.gcr.io/quizlet-330213/study
+      context: study
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.js'
+            dest: .

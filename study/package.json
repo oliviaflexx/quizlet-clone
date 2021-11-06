@@ -1,11 +1,11 @@
 {
-  "name": "folders",
+  "name": "study",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev src/index.ts",
-    "test": "jest --watchAll --no-cache --detectOpenHandles"
+    "test": "jest --watchAll --no-cache"
   },
   "jest": {
     "preset": "ts-jest",

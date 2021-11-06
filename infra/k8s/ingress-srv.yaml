@@ -26,6 +26,14 @@ spec:
             backend:
               serviceName: folders-srv
               servicePort: 3000
+          - path: /api/classes/?(.*)
+            backend:
+              serviceName: classes-srv
+              servicePort: 3000
+          - path: /api/study/?(.*)
+            backend:
+              serviceName: study-srv
+              servicePort: 3000
           - path: /?(.*)
             backend:
               serviceName: client-srv
