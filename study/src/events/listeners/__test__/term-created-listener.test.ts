@@ -26,9 +26,17 @@ const setup = async () => {
     ack: jest.fn(),
   };
 
+    const term = Term.build({
+      term: "user test term",
+      definition: "user test definition",
+      set_id: new mongoose.Types.ObjectId().toHexString(),
+      id: new mongoose.Types.ObjectId().toHexString()
+    });
+
+    await term.save();
+
   const user_term = UserTerm.build({
-    term: "user test term",
-    definition: "user test definition"
+    term_id: term.id
   });
 
   await user_term.save();
@@ -69,10 +77,14 @@ it("finds relevant user sets and adds the term", async () => {
 
   expect(terms!.length).toEqual(2);
 
-  const set = await UserSet.findOne({}).populate("user_terms");
+  const set = await UserSet.findOne({}).populate({
+    path: "user_terms",
+    populate: {
+      path: "term_id"
+    }
+  });
 
-  console.log(set);
-  expect(set!.user_terms[1].term).toEqual("listener test term");
+  expect(set!.user_terms[1].term_id.term).toEqual("listener test term");
 });
 
 it("acks the message", async () => {

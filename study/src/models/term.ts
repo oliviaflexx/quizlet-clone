@@ -8,7 +8,7 @@ interface TermAttrs {
   set_id: string;
 }
 
-interface TermDoc extends mongoose.Document {
+export interface TermDoc extends mongoose.Document {
   term: string;
   version: number;
   definition: string;

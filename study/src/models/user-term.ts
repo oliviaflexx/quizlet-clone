@@ -1,18 +1,17 @@
 import mongoose, { mongo } from "mongoose";
 import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 import { TermStatusOptions } from "../term_status_options";
+import { TermDoc } from './term';
 
 interface UserTermAttrs {
-    term: string;
-    definition: string;
+  term_id: TermDoc;
 }
 
 export interface UserTermDoc extends mongoose.Document {
-    term: string;
-    definition: string;
-    starred: boolean;
-    status: TermStatusOptions;
-    study_num: number;
+  starred: boolean;
+  status: TermStatusOptions;
+  study_num: number;
+  term_id: TermDoc;
 }
 
 interface UserTermModel extends mongoose.Model<UserTermDoc> {
@@ -21,14 +20,6 @@ interface UserTermModel extends mongoose.Model<UserTermDoc> {
 
 const userTermSchema = new mongoose.Schema(
   {
-    term: {
-      type: String,
-      required: true,
-    },
-    definition: {
-      type: String,
-      required: true,
-    },
     starred: {
       type: Boolean,
       required: true,
@@ -44,6 +35,10 @@ const userTermSchema = new mongoose.Schema(
       type: Number,
       required: true,
       default: 0,
+    },
+    term_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Term"
     },
   },
   {

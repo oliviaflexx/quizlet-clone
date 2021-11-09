@@ -25,16 +25,12 @@ export class TermCreatedListener extends Listener<TermCreatedEvent> {
 
     for (let set of sets) {
       let newUserTerm = UserTerm.build({
-        term: newTerm.term,
-        definition: newTerm.definition,
+        term_id: newTerm.id
       });
-
       await newUserTerm.save();
 
-      console.log(newUserTerm);
       set.user_terms.push(newUserTerm);
       await set.save();
-      console.log(set);
     }
 
     msg.ack();
