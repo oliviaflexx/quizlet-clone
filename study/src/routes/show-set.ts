@@ -12,7 +12,7 @@ router.get(
 
         try {
             const set = await findOrCreate(req.params.id, req.currentUser!.id);
-            res.send(set);
+            res.send(set.user_terms);
         }
         catch(error) {
             throw new NotFoundError();

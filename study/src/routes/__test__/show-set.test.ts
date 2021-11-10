@@ -62,12 +62,13 @@ it("returns the correct set completely populated", async () => {
       .set("Cookie", cookie)
       .send();
 
-      expect(response1.body.user_terms[0].term_id.term).toEqual(term.term);
-      
+      expect(response1.body[0].term_id.term).toEqual(term.term);
+
       const response2 = await request(app)
         .get(`/api/study/${term.set_id}`)
         .set("Cookie", cookie)
         .send();
-      expect(response2.body.user_terms[0].term_id.term).toEqual(term.definition);
+
+    expect(response1.body[0].term_id.definition).toEqual(term.definition);
 
 })
