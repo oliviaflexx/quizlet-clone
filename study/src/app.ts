@@ -3,7 +3,7 @@ import "express-async-errors";
 import { json } from "body-parser";
 import cookieSession from "cookie-session";
 import { errorHandler, NotFoundError, currentUser } from "@quizlet-clone/common";
-
+import { showSetRouter } from "./routes/show-set";
 
 const app = express();
 app.set("trust proxy", true);
@@ -17,7 +17,7 @@ app.use(
 app.use(currentUser);
 
 //routes will go here
-
+app.use(showSetRouter);
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();

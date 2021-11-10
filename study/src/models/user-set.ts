@@ -35,6 +35,7 @@ interface UserSetModel extends mongoose.Model<UserSetDoc> {
   build(attrs: UserSetAttrs): UserSetDoc;
 }
 
+
 const userSetSchema = new mongoose.Schema(
   {
     owner_id: {
