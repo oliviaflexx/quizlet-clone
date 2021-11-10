@@ -37,6 +37,7 @@ export async function findOrCreate(set_id: string, owner_id: string): Promise<Us
             });
             await user_term.save();
 
+           
             user_terms.push(user_term);
 
         }
@@ -56,6 +57,7 @@ export async function findOrCreate(set_id: string, owner_id: string): Promise<Us
           },
         ]);
 
+    
         return newSet!;
 
     }
