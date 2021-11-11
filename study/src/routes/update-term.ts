@@ -82,7 +82,6 @@ router.put(
       if (user_term.status === TermStatusOptions.Not_Studied) {
         user_term.set({status: TermStatusOptions.Still_Learning, study_num: 1 })
       }
-      console.log(user_term);
     }
     else if (correct === true && user_term.study_num !== 3) {
       if (user_term.study_num === 2) {

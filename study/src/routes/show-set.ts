@@ -1,6 +1,5 @@
 import express, { Request, Response } from "express";
 import { requireAuth, NotFoundError } from "@quizlet-clone/common";
-import { UserSet } from "../models/user-set";
 import { findOrCreate } from "./functions/find-or-create";
 
 const router = express.Router();
@@ -12,7 +11,7 @@ router.get(
 
         try {
             const set = await findOrCreate(req.params.id, req.currentUser!.id);
-            res.send(set.user_terms);
+            res.send(set);
         }
         catch(error) {
             throw new NotFoundError();

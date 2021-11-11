@@ -73,7 +73,7 @@ it("if the id is valid and the user has study set then one is not created", asyn
   expect(user_sets.length).toEqual(2);
 
   const response2 = await request(app)
-    .put(`/api/study/term/${response1.body[0].id}/star`)
+    .put(`/api/study/term/${response1.body.user_terms[0].id}/star`)
     .set("Cookie", cookie)
     .send()
     .expect(200);
@@ -93,7 +93,7 @@ it("changes the starred attribute", async () => {
     .send();
 
   const response2 = await request(app)
-    .put(`/api/study/term/${response1.body[0].id}/star`)
+    .put(`/api/study/term/${response1.body.user_terms[0].id}/star`)
     .set("Cookie", cookie)
     .send()
     .expect(200);
@@ -126,7 +126,7 @@ it("updates the status of a term", async () => {
       flashcards: false,
     });
 
-  console.log(response1.body);
+  // console.log(response1.body);
   expect(response1.body.study_num).toEqual(1);
   expect(response1.body.status).toEqual("Still learning");
 
@@ -138,7 +138,7 @@ it("updates the status of a term", async () => {
       flashcards: false,
     });
 
-  console.log(response2.body);
+  // console.log(response2.body);
   expect(response2.body.study_num).toEqual(1);
   expect(response2.body.status).toEqual("Still learning");
 
@@ -150,7 +150,7 @@ it("updates the status of a term", async () => {
       flashcards: false,
     });
 
-  console.log(response3.body);
+  // console.log(response3.body);
   expect(response3.body.study_num).toEqual(2);
   expect(response3.body.status).toEqual("Still learning");
 
@@ -162,10 +162,9 @@ it("updates the status of a term", async () => {
       flashcards: true,
     });
 
-  console.log(response4.body);
+  // console.log(response4.body);
   expect(response4.body.study_num).toEqual(2);
   expect(response4.body.status).toEqual("Still learning");
-    
 
   const response5 = await request(app)
     .put(`/api/study/term/${user_term.id}`)
@@ -175,7 +174,7 @@ it("updates the status of a term", async () => {
       flashcards: false,
     });
 
-  console.log(response5.body);
+  // console.log(response5.body);
   expect(response5.body.study_num).toEqual(3);
   expect(response5.body.status).toEqual("Mastered");
 
@@ -187,7 +186,7 @@ it("updates the status of a term", async () => {
       flashcards: false,
     });
 
-  console.log(response6.body);
+  // console.log(response6.body);
   expect(response6.body.study_num).toEqual(3);
   expect(response6.body.status).toEqual("Mastered");
 
@@ -199,7 +198,7 @@ it("updates the status of a term", async () => {
       flashcards: false,
     });
 
-  console.log(response7.body);
+  // console.log(response7.body);
   expect(response7.body.study_num).toEqual(2);
   expect(response7.body.status).toEqual("Still learning");
 });

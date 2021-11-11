@@ -5,6 +5,7 @@ import cookieSession from "cookie-session";
 import { errorHandler, NotFoundError, currentUser } from "@quizlet-clone/common";
 import { showSetRouter } from "./routes/show-set";
 import { updateTermRouter } from "./routes/update-term";
+import { flashcardsRouter } from "./routes/flashcards";
 
 const app = express();
 app.set("trust proxy", true);
@@ -19,8 +20,8 @@ app.use(currentUser);
 
 //routes will go here
 app.use(updateTermRouter);
+app.use(flashcardsRouter);
 app.use(showSetRouter);
-
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();
