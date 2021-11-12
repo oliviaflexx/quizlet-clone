@@ -56,15 +56,6 @@ router.put(
   }
 );
 
-// find the user term
-// take its study_num
-// if flashcards = true | study_num = 0
-  // if status != mastered then study_num = 1 and status = still learning
-// else if correct = true && study_num !=3
-// incremement by 1
-// if study_num now = 3 then change num and status to mastered
-// else if correct = false && study_num != 1
-// if study_num now < 3 then decrememnt num and status to still learning
 
 router.put(
   "/api/study/term/:id/",

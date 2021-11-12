@@ -27,6 +27,7 @@ router.put(
     try {
         const set = await findOrCreate(req.params.id, req.currentUser!.id);
         set.flashcards.current_index = current_index;
+        set.flashcards.last_studied = new Date();
         set.save();
         res.send(set);
     }

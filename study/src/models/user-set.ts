@@ -28,6 +28,7 @@ export interface UserSetDoc extends mongoose.Document {
   test: {
     last_studied: Date | undefined;
     percent_correct: number | undefined;
+    num_times_completed: number;
   };
 }
 

@@ -49,6 +49,7 @@ router.put(
     set.write.remaining = remaining;
     set.write.correct = correct;
     set.write.incorrect = incorrect;
+    set.write.last_studied = new Date();
     set.save();
     res.send(set);
   }
