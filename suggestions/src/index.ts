@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 
 import { app } from "./app";
 import { natsWrapper } from "./nats-wrapper";
-import { TermCreatedListener } from './events/listeners/term-created-listener';
+import { TermCreatedListener } from "./events/listeners/term-created-listener";
+import { TermUpdatedListener } from "./events/listeners/term-updated-listener";
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -12,35 +13,36 @@ const start = async () => {
     throw new Error("MONGO_URI must be defined");
   }
 
-if (!process.env.NATS_CLIENT_ID) {
-  throw new Error("NATS_CLIENT_ID must be defined");
-}
-if (!process.env.NATS_URL) {
-  throw new Error("NATS_URL must be defined");
-}
-if (!process.env.NATS_CLUSTER_ID) {
-  throw new Error("NATS_CLUSTER_ID must be defined");
-}
-    await natsWrapper.connect(
-      process.env.NATS_CLUSTER_ID,
-      process.env.NATS_CLIENT_ID,
-      process.env.NATS_URL
-    );
-    natsWrapper.client.on("close", () => {
-      console.log("NATS connection closed!");
-      process.exit();
-    });
-    process.on("SIGINT", () => natsWrapper.client.close());
-    process.on("SIGTERM", () => natsWrapper.client.close());
-    
-    new TermCreatedListener(natsWrapper.client).listen();
-    
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-    });
-    console.log("Connected to MongoDb");
+  if (!process.env.NATS_CLIENT_ID) {
+    throw new Error("NATS_CLIENT_ID must be defined");
+  }
+  if (!process.env.NATS_URL) {
+    throw new Error("NATS_URL must be defined");
+  }
+  if (!process.env.NATS_CLUSTER_ID) {
+    throw new Error("NATS_CLUSTER_ID must be defined");
+  }
+  await natsWrapper.connect(
+    process.env.NATS_CLUSTER_ID,
+    process.env.NATS_CLIENT_ID,
+    process.env.NATS_URL
+  );
+  natsWrapper.client.on("close", () => {
+    console.log("NATS connection closed!");
+    process.exit();
+  });
+  process.on("SIGINT", () => natsWrapper.client.close());
+  process.on("SIGTERM", () => natsWrapper.client.close());
+
+  new TermCreatedListener(natsWrapper.client).listen();
+  new TermUpdatedListener(natsWrapper.client).listen();
+
+  await mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  });
+  console.log("Connected to MongoDb");
 
   app.listen(3000, () => {
     console.log("Listening on port 3000!!!!!!!!");

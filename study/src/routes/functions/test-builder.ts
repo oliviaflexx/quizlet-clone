@@ -1,7 +1,6 @@
 import { UserSet, UserSetDoc } from "../../models/user-set";
 import { Term } from "../../models/term";
 import { UserTerm, UserTermDoc } from "../../models/user-term";
-import { AnyArray } from "mongoose";
 
 interface Test {
   trueOrFalse: [
