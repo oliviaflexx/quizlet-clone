@@ -68,11 +68,3 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
-    - image: us.gcr.io/quizlet-330213/expiration
-      context: expiration
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: 'src/**/*.ts'
-            dest: .
