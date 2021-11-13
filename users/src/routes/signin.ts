@@ -9,7 +9,7 @@ import { User } from '../models/user';
 const router = express.Router();
 
 router.post(
-  "/api/auth/signin",
+  "/api/users/auth/signin",
   [
     body("name").notEmpty().withMessage("You must supply a username"),
     body("password")

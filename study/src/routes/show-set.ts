@@ -10,6 +10,7 @@ router.get(
     async (req: Request, res: Response) => {
 
         try {
+            // maybe just do find
             const set = await findOrCreate(req.params.id, req.currentUser!.id);
             res.send(set);
         }

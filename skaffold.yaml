@@ -12,8 +12,8 @@ build:
   googleCloudBuild:
     projectId: quizlet-330213
   artifacts:
-    - image: us.gcr.io/quizlet-330213/auth
-      context: auth
+    - image: us.gcr.io/quizlet-330213/users
+      context: users
       docker:
         dockerfile: Dockerfile
       sync:
