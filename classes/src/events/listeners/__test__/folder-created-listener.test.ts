@@ -26,7 +26,7 @@ const setup = async () => {
   return { listener, data, msg };
 };
 
-it("creates and saves a set", async () => {
+it("creates and saves a folder", async () => {
   const { listener, data, msg } = await setup();
 
   // call the onMessage function with the data object + message object

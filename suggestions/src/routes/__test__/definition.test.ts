@@ -12,5 +12,4 @@ it("has a route handler listening to /api/sets for post requests", async () => {
     .set("Cookie", cookie)
     .send({ term: "approach", definition: "this is the definition" });
 
-  console.log(response.body);
 });

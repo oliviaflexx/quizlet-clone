@@ -14,6 +14,9 @@ import { buildTest } from "./functions/test-builder";
 import { UserSetDoc, UserSet } from "../models/user-set";
 import { UserTerm } from "../models/user-term";
 import { TermStatusOptions } from "../term_status_options";
+import { StudyCompletePublisher } from "../events/publishers/study-complete-publisher";
+import { StudyCreatedPublisher } from "../events/publishers/study-created-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
@@ -46,6 +49,12 @@ router.get(
 
         const test = await buildTest(user_terms);
 
+       await new StudyCreatedPublisher(natsWrapper.client).publish({
+         type: "flashcards",
+         userId: req.currentUser!.id,
+         date: new Date(),
+         setId: set.set_id,
+       });
         res.send(test);
 
     }
@@ -60,7 +69,6 @@ router.post(
     const { user_terms } = req.body;
 
     let set = await UserSet.findById(req.params.id);
-;
 
     if (!set) {
       throw new NotFoundError();
@@ -125,6 +133,13 @@ router.post(
       },
     ]);
 
+
+    await new StudyCompletePublisher(natsWrapper.client).publish({
+      type: "test",
+      userId: req.currentUser!.id,
+      date: new Date(),
+      setId: set!.set_id,
+    });
 
     res.send(set)
   }

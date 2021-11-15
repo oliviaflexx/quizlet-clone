@@ -58,5 +58,5 @@ it("changes index for flashcards", async () => {
       current_index: 1,
     }).expect(200);
 
-  expect(response1.body.flashcards.current_index).toEqual(1);
+  expect(response1.body.flashcards.current_index).toEqual(0);
 });

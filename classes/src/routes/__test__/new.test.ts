@@ -36,7 +36,6 @@ it(" it returns the class if successfully created", async () => {
     .set("Cookie", cookie)
     .send({ title: "test title", school: "McGill" }).expect(201);
 
-console.log(response.body);
   expect(response.body.title).toEqual("test title");
     expect(response.body.school).toEqual("McGill");
     expect(response.body.adminName).toEqual("testingUsername");

@@ -43,5 +43,4 @@ it("if class is found it returns it only if user is a member", async () => {
     .send()
     .expect(200);
 
-  console.log(seeClass.body);
 });

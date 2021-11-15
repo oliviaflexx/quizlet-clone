@@ -46,6 +46,8 @@ router.put(
       title: foundClass.title,
       version: foundClass.version,
       admin: foundClass.adminName,
+      numSets: foundClass.numSets,
+      members: foundClass.members
     });
 
     res.send(foundClass);
@@ -81,6 +83,7 @@ router.put(
     }
 
     foundClass.sets.push(set);
+    foundClass.set({numSets: foundClass.numSets + 1});
     await foundClass.save();
 
     await new ClassUpdatedPublisher(natsWrapper.client).publish({
@@ -88,6 +91,8 @@ router.put(
       title: foundClass.title,
       version: foundClass.version,
       admin: foundClass.adminName,
+      numSets: foundClass.numSets,
+      members: foundClass.members,
     });
 
     res.send(foundClass);
@@ -122,6 +127,7 @@ router.put(
     }
 
     foundClass.folders.push(folder);
+    foundClass.set({ numSets: foundClass.numSets + folder.num_of_sets });
     await foundClass.save();
 
     await new ClassUpdatedPublisher(natsWrapper.client).publish({
@@ -129,6 +135,8 @@ router.put(
       title: foundClass.title,
       version: foundClass.version,
       admin: foundClass.adminName,
+      numSets: foundClass.numSets,
+      members: foundClass.members,
     });
 
     res.send(foundClass);
@@ -161,6 +169,8 @@ router.put(
       title: foundClass.title,
       version: foundClass.version,
       admin: foundClass.adminName,
+      numSets: foundClass.numSets,
+      members: foundClass.members,
     });
 
     res.send(foundClass);

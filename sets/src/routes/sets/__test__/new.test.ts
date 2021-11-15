@@ -153,6 +153,6 @@ it("publishes an event", async () => {
       folders,
       classes,
     });
-    console.log(response.body);
+   
   expect(natsWrapper.client.publish).toHaveBeenCalled();
 });

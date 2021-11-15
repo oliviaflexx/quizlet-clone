@@ -30,6 +30,7 @@ router.post(
       dateCreated: new Date(),
       school,
       link: crypto.randomBytes(20).toString("hex"),
+      numSets: 0
     });
 
     await newClass.save();
@@ -39,6 +40,7 @@ router.post(
       version: newClass.version,
       title: newClass.title,
       admin: newClass.adminName,
+      school: newClass.school
     });
 
     res.status(201).send(newClass);

@@ -15,6 +15,7 @@ const setup = async () => {
     id: new mongoose.Types.ObjectId().toHexString(),
     term: "test term",
     definition: "test definition",
+    set_id: new mongoose.Types.ObjectId().toHexString()
   };
 
   // create a fake message object

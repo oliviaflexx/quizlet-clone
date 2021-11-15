@@ -12,5 +12,4 @@ const cookie = await global.signin();
     .set("Cookie", cookie)
     .send({ term: "appr" });
 
-    console.log(response.body);
 });

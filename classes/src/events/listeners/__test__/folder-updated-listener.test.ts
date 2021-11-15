@@ -19,7 +19,8 @@ const setup = async () => {
     adminName: "oliviaflexx",
     dateCreated: new Date(),
     school: "McGill University",
-    link: "123"
+    link: "123",
+    numSets: 0
   });
 
   await newClass.save();
@@ -87,7 +88,6 @@ it("acks the message", async () => {
   // call the onMessage function with the data object + message object
   await listener.onMessage(data, msg);
 
-  console.log("made it");
   // write assertions to make sure ack function is called
   expect(msg.ack).toHaveBeenCalled();
 });

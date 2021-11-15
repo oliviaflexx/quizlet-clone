@@ -159,7 +159,6 @@ it("publishes an event twice", async () => {
          .set("Cookie", cookie)
          .expect(200);
 
-        console.log(response3.body.terms);
         expect(response3.body.terms[0].term).toEqual("test term");
 
     expect(natsWrapper.client.publish).toHaveBeenCalledTimes(3);

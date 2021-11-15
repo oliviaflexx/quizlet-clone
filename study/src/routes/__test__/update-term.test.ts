@@ -64,9 +64,9 @@ it("if the id is valid and the user has study set then one is not created", asyn
   const { set, cookie, term, user_term } = await setup();
 
   const response1 = await request(app)
-    .get(`/api/study/${term.set_id}`)
+    .put(`/api/study/flashcards/${term.set_id}`)
     .set("Cookie", cookie)
-    .send();
+    .send({current_index: 1});
 
   let user_sets = await UserSet.find({});
 
@@ -88,9 +88,9 @@ it("changes the starred attribute", async () => {
   const cookie2 = await global.signin();
 
   const response1 = await request(app)
-    .get(`/api/study/${term.set_id}`)
+    .put(`/api/study/flashcards/${term.set_id}`)
     .set("Cookie", cookie)
-    .send();
+    .send({current_index: 1});
 
   const response2 = await request(app)
     .put(`/api/study/term/${response1.body.user_terms[0].id}/star`)

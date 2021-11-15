@@ -49,7 +49,7 @@ const response2 = await request(app)
   .set("Cookie", cookie)
   .send({ title: "", set_id: set.id }).expect(200);
 
-  console.log(response2.body)
+
   expect(response2.body.title).toEqual("test title");
   expect(response2.body.sets[0].title).toEqual(set.title);
 

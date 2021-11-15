@@ -11,6 +11,9 @@ import {
 
 import { findOrCreate } from "./functions/find-or-create";
 import { UserSetDoc, UserSet } from "../models/user-set";
+import { StudyCompletePublisher } from "../events/publishers/study-complete-publisher";
+import { StudyCreatedPublisher } from "../events/publishers/study-created-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
@@ -28,7 +31,9 @@ router.put(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { current_index, remaining, correct, incorrect } = req.body;
+    let { current_index, remaining, correct, incorrect } = req.body;
+    let completed: boolean = false;
+    let created: boolean = false;
 
     let set = await UserSet.findOne({});
 
@@ -45,12 +50,38 @@ router.put(
       throw new BadRequestError("Invalid inputs");
     }
 
+    if (current_index === set.user_terms.length) {
+      completed = true;
+      current_index = 0;
+      remaining = set.user_terms.length;
+      correct = 0;
+      incorrect = 0;
+    } else if (current_index === 1) {
+      created = true;
+    }
+
     set.write.current_index = current_index;
     set.write.remaining = remaining;
     set.write.correct = correct;
     set.write.incorrect = incorrect;
     set.write.last_studied = new Date();
     set.save();
+
+    if (completed) {
+      await new StudyCompletePublisher(natsWrapper.client).publish({
+        type: "write",
+        userId: req.currentUser!.id,
+        date: new Date(),
+        setId: set.set_id,
+      });
+    } else if (created) {
+      await new StudyCreatedPublisher(natsWrapper.client).publish({
+        type: "write",
+        userId: req.currentUser!.id,
+        date: new Date(),
+        setId: set.set_id,
+      });
+    }
     res.send(set);
   }
 );

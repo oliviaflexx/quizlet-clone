@@ -12,7 +12,6 @@ export class SetUpdatedListener extends Listener<SetUpdatedEvent> {
   async onMessage(data: SetUpdatedEvent["data"], msg: Message) {
     const { title, id, termId, term_amount } = data;
 
-    console.log(data)
 
     // IF TERMID IS DEFINED THEN COPY THE SET LENGTH TO THE SET
 

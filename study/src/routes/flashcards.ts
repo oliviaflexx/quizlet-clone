@@ -8,6 +8,9 @@ import {
 } from "@quizlet-clone/common";
 
 import { findOrCreate } from "./functions/find-or-create";
+import { StudyCompletePublisher } from "../events/publishers/study-complete-publisher";
+import { StudyCreatedPublisher } from "../events/publishers/study-created-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
@@ -22,13 +25,44 @@ router.put(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { current_index } = req.body;
+    let { current_index } = req.body;
+
+    let completed: boolean = false;
+    let created: boolean = false;
 
     try {
         const set = await findOrCreate(req.params.id, req.currentUser!.id);
+
+        if (current_index === set.user_terms.length) {
+          completed = true;
+          current_index = 0;
+        } 
+        else if (current_index === 1) {
+          created = true;
+        }
+
         set.flashcards.current_index = current_index;
         set.flashcards.last_studied = new Date();
         set.save();
+
+        if (completed) {
+          await new StudyCompletePublisher(natsWrapper.client).publish({
+            type: "flashcards",
+            userId: req.currentUser!.id,
+            date: new Date(),
+            setId: set.set_id
+          });
+        }
+        else if (created) {
+          await new StudyCreatedPublisher(natsWrapper.client).publish({
+            type: "flashcards",
+            userId: req.currentUser!.id,
+            date: new Date(),
+            setId: set.set_id,
+          });
+        }
+        
+
         res.send(set);
     }
     catch(error) {

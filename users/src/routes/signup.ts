@@ -3,12 +3,12 @@ import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
 import { validateRequest, BadRequestError } from "@quizlet-clone/common";
 import { User } from '../models/user';
-
+import { Library } from "../models/library";
 
 const router = express.Router();
 
 router.post(
-  "/api/users/auth/signup",
+  "/api/users/signup",
   [
     body("email").isEmail().withMessage("Email must be valid"),
     body("password")
@@ -35,6 +35,9 @@ router.post(
 
     const user = User.build({ email, password, name });
     await user.save();
+
+    const library = Library.build({user: user});
+    await library.save();
 
     // Generate JWT
     const userJwt = jwt.sign(

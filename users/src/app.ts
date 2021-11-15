@@ -9,6 +9,7 @@ import { signinRouter } from './routes/signin';
 import { signoutRouter } from './routes/signout';
 import { signupRouter } from './routes/signup';
 import { errorHandler, NotFoundError } from '@quizlet-clone/common';
+import { libraryRouter } from './routes/show-library';
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signoutRouter);
 app.use(signupRouter);
+app.use(libraryRouter);
 
 app.all('*', async (req, res) => {
   throw new NotFoundError();

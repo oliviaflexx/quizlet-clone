@@ -10,6 +10,7 @@ interface ClassAttrs {
   dateCreated: Date;
   school: string;
   link: string;
+  numSets: number;
 }
 
 interface ClassDoc extends mongoose.Document {
@@ -23,6 +24,7 @@ interface ClassDoc extends mongoose.Document {
   school: string;
   members: string[];
   link: string;
+  numSets: number;
 }
 
 interface ClassModel extends mongoose.Model<ClassDoc> {
@@ -72,6 +74,10 @@ const classSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
+    numSets: {
+      type: Number,
+      required: true
+    }
   },
   {
     toJSON: {

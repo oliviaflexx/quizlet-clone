@@ -28,9 +28,10 @@ const setup = async () => {
   }
 
   const response1 = await request(app)
-    .get(`/api/study/${set_id}`)
+    .put(`/api/study/flashcards/${set_id}`)
     .set("Cookie", cookie)
-    .send();
+    .send({current_index: 1});
+
 
     for (let user_term of response1.body.user_terms) {
       user_terms.push({

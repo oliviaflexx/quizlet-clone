@@ -113,8 +113,8 @@ it("changes index, remaining, correct and incorrect for write", async () => {
     })
     .expect(200);
 
-  expect(response1.body.write.current_index).toEqual(1);
-  expect(response1.body.write.remaining).toEqual(0);
+  expect(response1.body.write.current_index).toEqual(0);
+  expect(response1.body.write.remaining).toEqual(1);
   expect(response1.body.write.correct).toEqual(0);
-  expect(response1.body.write.incorrect).toEqual(1);
+  expect(response1.body.write.incorrect).toEqual(0);
 });

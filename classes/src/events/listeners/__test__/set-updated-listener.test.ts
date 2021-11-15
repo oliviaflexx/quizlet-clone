@@ -19,7 +19,8 @@ const setup = async () => {
     adminName: "oliviaflexx",
     dateCreated: new Date(),
     school: "McGill University",
-    link: "123"
+    link: "123",
+    numSets: 0
   });
 
   await newClass.save();
