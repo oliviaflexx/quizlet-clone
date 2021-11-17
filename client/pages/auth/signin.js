@@ -7,7 +7,7 @@ const Signin = () => {
   const [password, setPassword] = useState("");
 
   const { doRequest, errors } = useRequest({
-    url: "/api/auth/signin",
+    url: "/api/users/signin",
     method: "post",
     body: {
       password,
@@ -42,7 +42,7 @@ const Signin = () => {
           className="form-control"
         />
       </div>
-      {errors ? errors.map((err) => <p>{err}</p>) : ""}
+      {errors}
       <button className="btn btn-primary">Sign In</button>
     </form>
   );
