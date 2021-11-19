@@ -5,7 +5,8 @@ import Header from "../components/header";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "../components/Themes";
 import { useDarkMode } from "../hooks/useDarkMode";
-import "../styles.css"
+import { GlobalStyles } from "../components/globalStyles";
+import "./styles.css"
 
 const AppComponent = ({ Component, pageProps, currentUser }) => {
   const [theme, themeToggler] = useDarkMode();
@@ -13,6 +14,7 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
 
   return (
     <ThemeProvider theme={themeMode}>
+      <GlobalStyles/>
       <Header currentUser={currentUser} />
       <button onClick={themeToggler}> Switch theme</button>
       <Component {...pageProps} />

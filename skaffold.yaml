@@ -26,7 +26,7 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: '**/*.js'
+          - src: '**/*.**'
             dest: .
     - image: us.gcr.io/quizlet-330213/sets
       context: sets
