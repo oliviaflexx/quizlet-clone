@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: classes
-          image: us.gcr.io/quizlet-330213/classes
+          image: us.gcr.io/my-quizlet/classes
           env:
             - name: NATS_CLIENT_ID
               valueFrom:

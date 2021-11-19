@@ -6,6 +6,8 @@ import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
 import FilterNoneOutlinedIcon from "@mui/icons-material/FilterNoneOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
+import AddIcon from '@mui/icons-material/Add';
+import { useMediaQuery } from "react-responsive";
 
 const StyledHeader = styled.nav`
   background-color: ${({ theme }) => theme.headerBack};
@@ -25,7 +27,7 @@ const Brand = styled.h1`
 `;
 const NavLink = styled.p`
   color: ${({ theme }) => theme.navLink};
-  &:hover: {
+  &:hover {
     color: ${({ theme }) => theme.navLinkHover};
   }
   cursor: pointer;
@@ -38,8 +40,8 @@ const NavLink = styled.p`
 
 const CreateButton = styled.button`
   background-color: #7dd;
-  &:hover: {
-    color: #3ac8c8;
+  &:hover {
+    background-color: #77ddddf2;
   }
   cursor: pointer;
   color: ${({ theme }) => theme.headerBack};
@@ -79,56 +81,25 @@ const CreateModal = styled.div`
   }
 `;
 
-// const BorderUnderline = styled.span`
-//   width: 80%;
-//   height: 0.25rem;
-//   border-top-right-radius: 0.25rem;
-//   border-top-left-radius: 0.25rem;
-//   bottom: 0;
-//   content: " ";
-//   left: 15%;
-//   position: absolute;
-//   visibility: hidden;
-//   &:hover: {
-//     background-color: #cedaf3;
-//     visibility: visible;
-//   }
-// `;
-
-// const BorderUnderlineCurrent = styled.span`
-//   width: 80%;
-//   background-color: "#ffdc62";
-//   height: 0.25rem;
-//   border-top-right-radius: 0.25rem;
-//   border-top-left-radius: 0.25rem;
-//   bottom: 0;
-//   content: " ";
-//   left: 15%;
-//   position: absolute;
-//   visibility: visible;
-// `;
 
 const Header = ({theme, toggleTheme, currentUser }) => {
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [showBorder, setShowBorder] = useState('none');
-  const router = useRouter();
-
   const handleShowModal = () => {
     setShowCreateModal(!showCreateModal);
-  }
+  };
 
-  useEffect(() => {
-    console.log(router.pathname);
-    if (router.pathname === "/latest") {
-      setShowBorder("latest");
-    }
-    else if (router.pathname === "/user[user]") {
-      setShowBorder("user");
-    }
-    else {
-      setShowBorder('none');
-    }
-  }, [router]);
+  const router = useRouter();
+  const isBigScreen = useMediaQuery({ query: "(min-width: 1000px)" });
+  
+  // useEffect(() => {
+  //   if (router.pathname === "/latest") {
+  //     setShowBorder("latest");
+  //   } else if (router.pathname === "/user[user]") {
+  //     setShowBorder("user");
+  //   } else {
+  //     setShowBorder("none");
+  //   }
+  // }, [router]);
 
   return (
     <StyledHeader>
@@ -140,28 +111,22 @@ const Header = ({theme, toggleTheme, currentUser }) => {
           <Link href="/latest">
             <NavLink>Home</NavLink>
           </Link>
-          {/* {showBorder === "latest" ? (
-            <BorderUnderlineCurrent />
-          ) : (
-            <BorderUnderline />
-          )} */}
         </div>
         <div className="header-link">
           <Link href="/user/[user]" as={`/user/${currentUser}`}>
             <NavLink>Your Library</NavLink>
           </Link>
-          {/* {showBorder === "user" ? (
-            <BorderUnderlineCurrent />
-          ) : (
-            <BorderUnderline />
-          )} */}
         </div>
-        <CreateButton onClick={handleShowModal} onBlur={handleShowModal}>
-          Create <KeyboardArrowDownOutlinedIcon />
-        </CreateButton>
-        {/* <CreateButton onClick={handleShowModal}>
-          Create <KeyboardArrowDownOutlinedIcon />
-        </CreateButton> */}
+        {isBigScreen ? (
+          <CreateButton onClick={handleShowModal} onBlur={handleShowModal}>
+            Create
+            <KeyboardArrowDownOutlinedIcon />
+          </CreateButton>
+        ) : (
+          <CreateButton onClick={handleShowModal} onBlur={handleShowModal}>
+            <AddIcon />
+          </CreateButton>
+        )}
         {showCreateModal && (
           <CreateModal>
             <Link href="/create-set">

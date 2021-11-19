@@ -10,9 +10,9 @@ build:
   # local:
   #   push: false
   googleCloudBuild:
-    projectId: quizlet-330213
+    projectId: my-quizlet
   artifacts:
-    - image: us.gcr.io/quizlet-330213/users
+    - image: us.gcr.io/my-quizlet/users
       context: users
       docker:
         dockerfile: Dockerfile
@@ -20,7 +20,7 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: us.gcr.io/quizlet-330213/client
+    - image: us.gcr.io/my-quizlet/client
       context: client
       docker:
         dockerfile: Dockerfile
@@ -28,7 +28,7 @@ build:
         manual:
           - src: '**/*.**'
             dest: .
-    - image: us.gcr.io/quizlet-330213/sets
+    - image: us.gcr.io/my-quizlet/sets
       context: sets
       docker:
         dockerfile: Dockerfile
@@ -36,7 +36,7 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
-    - image: us.gcr.io/quizlet-330213/suggestions
+    - image: us.gcr.io/my-quizlet/suggestions
       context: suggestions
       docker:
         dockerfile: Dockerfile
@@ -44,7 +44,7 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
-    - image: us.gcr.io/quizlet-330213/classes
+    - image: us.gcr.io/my-quizlet/classes
       context: classes
       docker:
         dockerfile: Dockerfile
@@ -52,7 +52,7 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
-    - image: us.gcr.io/quizlet-330213/folders
+    - image: us.gcr.io/my-quizlet/folders
       context: folders
       docker:
         dockerfile: Dockerfile
@@ -60,7 +60,7 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
-    - image: us.gcr.io/quizlet-330213/study
+    - image: us.gcr.io/my-quizlet/study
       context: study
       docker:
         dockerfile: Dockerfile

@@ -18,7 +18,6 @@ const colors = {
     lightestGrey : '#d9dde8',
     lightGrey : '#939bb4',
     darkerGrey : '#646f90',
-    backgroundGrey : 'f6f7fb',
     previewShadow : '0 0.125rem 0.25rem rgb(0 0 0 / 8%)',
     flashcardShadow : '0 0.3125rem 1.25rem 0 rgb(0 0 0 / 16%)',
     offBlack : '#3030545',
@@ -47,17 +46,15 @@ export const lightTheme = {
   // searchBarBorder: colors.lightestGrey,
 
   // HEADER
-  headerBack: colors.mainBlue,
-  brand: colors.white,
-  navLink: colors.lightBlue,
-  navLinkHover: colors.white,
-  plusBackground: colors.greenishBlue,
-  plusBackgroundHover: colors.greenishBlueHover,
-  plusColor: colors.lightBlue,
-  plusColorHover: colors.lighterBlue,
-  headerModals: colors.white,
-  hoverTextColor: colors.black,
-  hoverBackgroundColor: colors.grey1
+  headerBack: "#4257b2",
+  brand: "white",
+  navLink: "#cedaf3",
+  navLinkHover: "white",
+  plusBackground: "#7dd",
+  plusColorHover: "#edeff4",
+  headerModals: "white",
+  hoverTextColor: "black",
+  hoverBackgroundColor: "#d9dde847",
 };
 
 export const darkTheme = {
@@ -72,13 +69,13 @@ export const darkTheme = {
   // searchBarBorder: colors.darkerGrey,
 
   // HEADER
-  headerBack: colors.blackGrey,
-  brand: colors.white,
-  navLink: colors.lightBlue,
-  navLinkHover: colors.white,
-  plusBackground: colors.darkGrey,
-  plusBackgroundHover: colors.darkGreyHover,
-  headerModals: colors.blackGrey,
-  hoverTextColor: colors.white,
-  hoverBackgroundColor: colors.darkGrey
+  headerBack: "#1a1d28",
+  brand: "white",
+  navLink: "#cedaf3",
+  navLinkHover: "white",
+  plusBackground: "#282e3e",
+  plusBackgroundHover: "#13141b33",
+  headerModals: "#1a1d28",
+  hoverTextColor: "white",
+  hoverBackgroundColor: "#282e3e",
 };

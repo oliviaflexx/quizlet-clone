@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: us.gcr.io/quizlet-330213/client
+          image: us.gcr.io/my-quizlet/client
 ---
 apiVersion: v1
 kind: Service

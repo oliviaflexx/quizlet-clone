@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: study
-          image: us.gcr.io/quizlet-330213/study
+          image: us.gcr.io/my-quizlet/study
           env:
             - name: NATS_CLIENT_ID
               valueFrom:

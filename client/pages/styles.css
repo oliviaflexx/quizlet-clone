@@ -10,3 +10,6 @@ div.header-link {
     align-items: center; */
     position: relative;
 }
+div.header-link:hover {
+    border-bottom: 5px solid #cedaf3;
+}
