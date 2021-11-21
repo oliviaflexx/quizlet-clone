@@ -55,6 +55,19 @@ export const lightTheme = {
   headerModals: "white",
   hoverTextColor: "black",
   hoverBackgroundColor: "#d9dde847",
+  searchBarBackground: "#5568BA",
+  searchBarBackgroundHover: "white",
+  searchBarColor: "#cedaf3",
+
+  // CREATE FOLDER MODAL
+  folderModalBackground: "white",
+  folderExit: "#939bb4",
+  folderHeader: "black",
+  folderInputBg: "#f6f7fb",
+  folderPlaceholder: "#646f90",
+  folderInputBorder: "#4257b2",
+  folderBottomBorder: "#edeff4",
+  folderCreateButton: "white",
 };
 
 export const darkTheme = {
@@ -78,4 +91,17 @@ export const darkTheme = {
   headerModals: "#1a1d28",
   hoverTextColor: "white",
   hoverBackgroundColor: "#282e3e",
+  searchBarBackground: "#282e3e",
+  searchBarBackgroundHover: "black",
+  searchBarColor: "#cedaf3",
+
+  // CREATE FOLDER MODAL
+  folderModalBackground: "#303545",
+  folderExit: "white",
+  folderHeader: "white",
+  folderInputBg: "#282e3e",
+  folderPlaceholder: "#939bb4",
+  folderInputBorder: "#7b89c9",
+  folderBottomBorder: "#1a1d28",
+  folderCreateButton: "black",
 };
