@@ -12,12 +12,10 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
   const [theme, themeToggler] = useDarkMode();
   const themeMode = theme === "light" ? lightTheme : darkTheme;
 
-  console.log(theme);
   return (
     <ThemeProvider theme={themeMode}>
       <GlobalStyles />
       <Header currentUser={currentUser} themeToggler={themeToggler} />
-      {/* <button onClick={themeToggler}> Switch theme</button> */}
       <Component {...pageProps} />
     </ThemeProvider>
   );

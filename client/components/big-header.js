@@ -11,6 +11,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { useMediaQuery } from "react-responsive";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import {BigCreateFolderModal} from "./create-folder-modal";
+import {BigCreateClassModal } from "./create-class-modal";
 
 const NavButton = styled.button`
   border-radius: 50%;
@@ -131,6 +132,7 @@ const SearchBar = styled.div`
 const BigHeader = ({theme, themeToggler, currentUser }) => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [ showCreateFolderModal, setShowCreateFolderModal] = useState(false);
+   const [showCreateClassModal, setShowCreateClassModal] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
   const isBigScreen = useMediaQuery({ query: "(min-width: 1000px)" });
   const handleShowModal = () => {
@@ -155,38 +157,48 @@ const BigHeader = ({theme, themeToggler, currentUser }) => {
   //     setShowBorder("none");
   //   }
   // }, [router]);
-
+  
   return (
     <StyledHeader>
       {showCreateFolderModal && (
         <BigCreateFolderModal
+          currentUser={currentUser}
           setShowCreateFolderModal={setShowCreateFolderModal}
-          showCreateFolderModal={showCreateFolderModal}
+        />
+      )}
+      {showCreateClassModal && (
+        <BigCreateClassModal size="desktop"
+          currentUser={currentUser}
+          setShowCreateClassModal={setShowCreateClassModal}
         />
       )}
       <div className="nav-content">
         <Link href="/">
           <Brand>Quizlet</Brand>
         </Link>
-        <div className="header-link">
-          <Link href="/latest">
-            <NavLink>Home</NavLink>
-          </Link>
-        </div>
-        <div className="header-link">
-          <Link href="/user/[user]" as={`/user/${currentUser}`}>
-            <NavLink>Your Library</NavLink>
-          </Link>
-        </div>
-        {!isBigScreen ? (
-          <CreateButton onClick={handleShowModal}>
-            <AddIcon />
-          </CreateButton>
-        ) : (
-          <CreateButton onClick={handleShowModal}>
-            Create
-            <KeyboardArrowDownOutlinedIcon />
-          </CreateButton>
+        {currentUser && (
+          <>
+            <div className="header-link">
+              <Link href="/latest">
+                <NavLink>Home</NavLink>
+              </Link>
+            </div>
+            <div className="header-link">
+              <Link href="/user/[user]" as={`/user/${currentUser}`}>
+                <NavLink>Your Library</NavLink>
+              </Link>
+            </div>
+            {!isBigScreen ? (
+              <CreateButton onClick={handleShowModal}>
+                <AddIcon />
+              </CreateButton>
+            ) : (
+              <CreateButton onClick={handleShowModal}>
+                Create
+                <KeyboardArrowDownOutlinedIcon />
+              </CreateButton>
+            )}
+          </>
         )}
 
         {/* <CreateButton onClick={handleShowModal}>
@@ -215,7 +227,9 @@ const BigHeader = ({theme, themeToggler, currentUser }) => {
             >
               <FolderOutlinedIcon /> Folder
             </button>
-            <button>
+            <button
+              onClick={() => setShowCreateClassModal(!showCreateClassModal)}
+            >
               <PeopleOutlineOutlinedIcon /> Class
             </button>
           </CreateModal>

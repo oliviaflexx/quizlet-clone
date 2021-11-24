@@ -5,6 +5,169 @@ import { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { useMediaQuery } from "react-responsive";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
+import CloseIcon from "@mui/icons-material/Close";
+import {CreateClassModal} from "./create-class-modal";
+import {BigCreateFolderModal} from "./create-folder-modal";
+import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
+import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
+
+const StyledMobileNav = styled.div`
+  position: absolute;
+  background-color: ${({ theme }) => theme.mobileNavBg};
+  color: #cedaf3;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  & > div.top {
+    padding: 0.5rem;
+    display: flex;
+    justify-content: flex-start;
+  }
+  & > div.top button {
+    all: unset;
+    margin: 0.5rem;
+    cursor: pointer;
+  }
+  & > div.body {
+    display: flex;
+    flex-direction: column;
+  }
+  & > div.body div.menu {
+    display: flex;
+    flex-direction: column;
+    border-left: 0.0625rem solid #ffffff1a;
+    margin: 0.5rem 1rem;
+    padding: 0;
+  }
+  & > div.body button {
+    all: unset;
+    margin: 0.5rem 0;
+    padding: 0 1rem;
+    width: 100%;
+    cursor: pointer;
+  }
+  & > div.body button:hover,
+  div.body a:hover {
+    border-left: 0.25rem solid #cedaf3;
+    padding-left: 0.75rem;
+    color: white;
+  }
+  & > div.body a {
+    all: unset;
+    margin: 0.5rem 0;
+    padding: 0 1rem;
+    width: 100%;
+    cursor: pointer;
+  }
+`;
+const MobileNav = ({ setShowMobileNav, currentUser }) => {
+  const [showLibrary, setShowLibrary] = useState(false);
+  const [showCreate, setShowCreate] = useState(false);
+  const [showCreateClassModal, setShowCreateClassModal] = useState(false);
+  const [showCreateFolderModal, setShowCreateFolderModal] = useState(false);
+
+  const library = (
+    <>
+      <button onClick={() => setShowLibrary(!showLibrary)}>
+        Your library
+        {showLibrary ? (
+          <KeyboardArrowUpOutlinedIcon />
+        ) : (
+          <KeyboardArrowDownOutlinedIcon />
+        )}
+      </button>
+      {showLibrary && (
+        <div className="menu">
+          <Link
+            onClick={() => setShowMobileNav(false)}
+            href="/user/[user]/sets"
+            as={`/user/${currentUser.name}/sets`}
+          >
+            Study sets
+          </Link>
+          <Link
+            onClick={() => setShowMobileNav(false)}
+            href="/user/[user]/folders"
+            as={`/user/${currentUser.name}/folders`}
+          >
+            Folders
+          </Link>
+          <Link
+            onClick={() => setShowMobileNav(false)}
+            href="/user/[user]/classes"
+            as={`/user/${currentUser.name}/classes`}
+          >
+            Classes
+          </Link>
+        </div>
+      )}
+      <button onClick={() => setShowCreate(!showCreate)}>
+        Create
+        {showCreate ? (
+          <KeyboardArrowUpOutlinedIcon />
+        ) : (
+          <KeyboardArrowDownOutlinedIcon />
+        )}
+      </button>
+      {showCreate && (
+        <div className="menu">
+          <Link href="/create-set">Study set</Link>
+          <button onClick={() => setShowCreateFolderModal(true)}>Folder</button>
+          <button onClick={() => setShowCreateClassModal(true)}>Class</button>
+        </div>
+      )}
+      <Link href="/auth/signout">Log out</Link>
+    </>
+  );
+
+  return (
+    <StyledMobileNav>
+      {showCreateFolderModal && (
+        <BigCreateFolderModal
+          size="mobile"
+          setShowCreateFolderModal={setShowCreateFolderModal}
+        />
+      )}
+      {showCreateClassModal && (
+        <CreateClassModal
+          size="mobile"
+          setShowCreateClassModal={setShowCreateClassModal}
+        />
+      )}
+      <div className="top">
+        <button className="exit" onClick={() => setShowMobileNav(false)}>
+          <CloseIcon
+            sx={{
+              height: "1.5rem",
+              width: "1.5rem",
+            }}
+          />
+        </button>
+      </div>
+      <div className="body">
+        <Link href="/" onClick={() => setShowMobileNav(false)}>
+          Home
+        </Link>
+        {currentUser ? (
+          library
+        ) : (
+          <>
+            <Link href="/auth/signin" onClick={() => setShowMobileNav(false)}>
+              Log in
+            </Link>
+            <Link href="/auth/signup" onClick={() => setShowMobileNav(false)}>
+              Sign up
+            </Link>
+          </>
+        )}
+      </div>
+    </StyledMobileNav>
+  );
+};
 
 const StyledHeader = styled.nav`
   background-color: ${({ theme }) => theme.headerBack};
@@ -15,6 +178,9 @@ const StyledHeader = styled.nav`
   display: flex;
   -webkit-justify-content: space-between;
   padding: 0 1rem;
+  & > div.nav-content svg {
+    cursor: pointer;
+  }
 `;
 
 const NavButton = styled.button`
@@ -56,12 +222,20 @@ const SearchBarOpen = styled.div`
 
 const SmallHeader = ({ theme, themeToggler, currentUser }) => {
   const [searchOpen, setSearchOpen] = useState(false);
+  const [showMobileNav, setShowMobileNav] = useState(false);
+  // console.log(currentUser);
 
   return (
     <StyledHeader>
-
-      <div className="nav-content">
+      {showMobileNav && (
+        <MobileNav
+          setShowMobileNav={setShowMobileNav}
+          currentUser={currentUser}
+        />
+      )}
+      <div className="nav-content top">
         <svg
+          onClick={() => setShowMobileNav(true)}
           fill="none"
           height="21"
           viewBox="0 0 37 21"

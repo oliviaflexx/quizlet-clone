@@ -21,6 +21,15 @@ router.post(
   async (req: Request, res: Response) => {
     const { title } = req.body;
 
+    const existingFolder = await Folder.findOne({
+      title,
+      creatorId: req.currentUser!.id,
+    });
+
+    if (existingFolder) {
+      throw new BadRequestError("Title is the same as another folder")
+    }
+    
     const folder = Folder.build({
       title,
       creatorId: req.currentUser!.id,

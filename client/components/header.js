@@ -2,15 +2,15 @@ import { useMediaQuery } from "react-responsive";
 import SmallHeader from "./small-header";
 import BigHeader from "./big-header";
 
-const Header = ({ themeToggler }) => {
+const Header = ({ themeToggler, currentUser }) => {
   const isMobile = useMediaQuery({ query: "(max-width: 850px)" });
 
   return (
     <>
       {isMobile ? (
-        <SmallHeader themeToggler={themeToggler} />
+        <SmallHeader currentUser={currentUser} themeToggler={themeToggler} />
       ) : (
-        <BigHeader themeToggler={themeToggler} />
+        <BigHeader currentUser={currentUser} themeToggler={themeToggler} />
       )}
     </>
   );

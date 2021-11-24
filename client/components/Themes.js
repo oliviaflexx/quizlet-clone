@@ -68,6 +68,19 @@ export const lightTheme = {
   folderInputBorder: "#4257b2",
   folderBottomBorder: "#edeff4",
   folderCreateButton: "white",
+
+  // CREATE CLASS MODAL
+  classModalBg: "white",
+  classModalHeader: "#4257b2",
+  classModalExit: "#4257b2",
+  classModalInputBorder: "#303545",
+  classModalInputColor: "#1a1d28",
+  classModalInputLabel: "#939bb4",
+  classModalInputPlaceholder: "#dcdeea",
+
+  // MOBILE NAV
+  mobileNavBg: "#4257b2",
+  mobileNavText: "#cedaf3",
 };
 
 export const darkTheme = {
@@ -104,4 +117,17 @@ export const darkTheme = {
   folderInputBorder: "#7b89c9",
   folderBottomBorder: "#1a1d28",
   folderCreateButton: "black",
+
+  // CREATE CLASS MODAL
+  classModalBg: "#1a1d28",
+  classModalHeader: "#282e3e",
+  classModalExit: "#13141b",
+  classModalInputBorder: "#13141b",
+  classModalInputColor: "#f6f7fb",
+  classModalInputLabel: "#c3c7d5",
+  classModalInputPlaceholder: "#929ab3",
+
+  // MOBILE NAV
+  mobileNavBg: "#1a1d28",
+  mobileNavText: "#939bb4",
 };

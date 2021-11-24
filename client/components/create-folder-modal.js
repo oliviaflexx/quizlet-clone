@@ -2,18 +2,19 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import useRequest from "../hooks/use-request";
 import CloseIcon from "@mui/icons-material/Close";
+import Router from "next/router";
 
 const StyledFolderModal = styled.div`
-  max-height: calc(100 vh - var(5rem) * 2);
-  border-radius: 1rem;
-  box-shadow: 0 0.25rem 1rem 0 #939bb414;
+  ${(props) => {
+    if (props.size === "mobile") {
+      return "bottom: 0; left: 0; overflow-y: auto; position: fixed; right: 0; top: 0;";
+    } else {
+      return "max-height: calc(100 vh - var(5rem) * 2); border-radius: 1rem; box-shadow: 0 0.25rem 1rem 0 #939bb414; margin: 5rem auto; overflow-y: hidden; position: relative; width: 40rem;";
+    }
+  }}
   display: flex;
   flex-direction: column;
-  margin: 5rem auto;
   outline: none;
-  overflow-y: hidden;
-  position: relative;
-  width: 40rem;
   background: ${({ theme }) => theme.folderModalBackground};
   z-index: 1200;
   & > button.exit {
@@ -64,17 +65,24 @@ const StyledFolderModal = styled.div`
     background-color: #3ccfcf;
     cursor: pointer;
     color: ${({ theme }) => theme.folderCreateButton};
-  }
+    ${(props) => {
+      if (props.size === "mobile") {
+        return "width: 100%; text-align: center;";
+    }}
+  }}
   & > div.bottom-folder button:disabled {
     background-color: #d9dde8;
     cursor: default;
   }
 `;
+
 export const BigCreateFolderModal = ({
   currentUser,
   theme,
   setShowCreateFolderModal,
+  size
 }) => {
+  const [title, setTitle] = useState("");
   const { doRequest, errors } = useRequest({
     url: "/api/folders",
     method: "post",
@@ -82,17 +90,15 @@ export const BigCreateFolderModal = ({
       title,
     },
     onSuccess: (folder) =>
-      Router.push("/folders/[folderId]", `/folders/${folder.id}`),
+    Router.push("/users/[user]/folders/[folderId]", `users/${currentUser.name}/folders/${folder.id}`),
   });
-
-  const [title, setTitle] = useState("");
 
   const submit = async () => {
     await doRequest();
   }
   return (
     <div className="modal-overlay">
-      <StyledFolderModal>
+      <StyledFolderModal size={size}>
         <button
           className="exit"
           onClick={() => setShowCreateFolderModal(false)}
@@ -114,9 +120,9 @@ export const BigCreateFolderModal = ({
             <button onClick={submit}>Create folder</button>
           )}
         </div>
+        {errors}
       </StyledFolderModal>
     </div>
   );
 };
-
 

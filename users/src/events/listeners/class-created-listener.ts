@@ -24,7 +24,7 @@ export class ClassCreatedListener extends Listener<ClassCreatedEvent> {
 
     await newClass.save();
 
-    const user = await User.findById(admin);
+    const user = await User.findOne({name: admin});
 
     if (!user) {
       throw new NotFoundError();
