@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import buildClient from "../api/build-client";
 import Header from "../components/header";
 import { ThemeProvider } from "styled-components";
-import { lightTheme, darkTheme } from "../components/Themes";
+import { lightTheme, darkTheme } from "../styles/Themes";
 import { useDarkMode } from "../hooks/useDarkMode";
 import { GlobalStyles } from "../components/globalStyles";
 import "./styles.css"

@@ -18,10 +18,8 @@ const useRequest = ({ url, method, body, onSuccess }) => {
     } catch (err) {
       console.log(err)
       setErrors(
-        // console.log(err.response.data)
-        err.response.data.errors.map((err) => (
-          <li key={err.message}>{err.message}</li>
-        ))
+        err.response.data.errors
+
       );
     }
   };
