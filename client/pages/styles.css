@@ -1,4 +1,6 @@
-
+html {
+    overflow-x: hidden;
+}
 div.nav-content {
     display: inline-flex;
     flex-direction: row;

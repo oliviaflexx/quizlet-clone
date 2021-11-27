@@ -1,39 +1,3 @@
-const colors = {
-      // header
-    mainBlue: '#4257b2',
-    // explanations in header
-    lightBlue : '#cedaf3',
-    lighterBlue : '#edeff4',
-    //your library in header and cards  
-    white : 'white',
-    // header plus, created by and buttons for latest
-    greenishBlue : '#7dd',
-    // same
-    greenishBlueHover : '#3ac8c8',
-    //border under your library and hover
-    yellow : '#ffdc62',
-    //same
-    yellowHover : '#f7d55f',
-    //created by
-    lightestGrey : '#d9dde8',
-    lightGrey : '#939bb4',
-    darkerGrey : '#646f90',
-    previewShadow : '0 0.125rem 0.25rem rgb(0 0 0 / 8%)',
-    flashcardShadow : '0 0.3125rem 1.25rem 0 rgb(0 0 0 / 16%)',
-    offBlack : '#3030545',
-    black : '#000',
-    darkBlueGrey : '#14131b',
-    superLightGrey : '#f6f7fb',
-    darkGrey : '#282e3e',
-    darkGreyHover : '#13141b33',
-    transparent : '#ffffff1a',
-    transparentHover : '#ffffff33',
-    blackGrey : '#1a1d28',
-    grey1 : '#d9dde847'
-
-    //DARK COLORS
-
-}
 export const lightTheme = {
   // USER LIBRARY
   // userName: colors.black,
@@ -81,6 +45,25 @@ export const lightTheme = {
   // MOBILE NAV
   mobileNavBg: "#4257b2",
   mobileNavText: "#cedaf3",
+
+  // CREATE SET
+  createSetBg: "#f6f7fb",
+  createSetHeaderBg: "white",
+  createSetHeaderTextColor: "#303545",
+  createSetHeaderButtonColor: "white",
+  createSetHeaderInputBorder: "#4257b2",
+  createSetTermBg: "white",
+  createSetToolbarBorder: "#f6f7fb",
+  createSetTermColor: "#939bb4",
+  createSetTermInputBorder: "#303545",
+  createSetTermInputColor: "#303545",
+  createSetSmallButton: "#646f90",
+  createSetSmallButtonBorder: "#d9dde8",
+  createSetSmallButtonBorderHover: "#939bb4",
+  createSetOptionsHeader: "#4257b2",
+  createSetOptionsBody: "white",
+  createSetOptionsSelectBg: "white",
+  createSetOptionsSelectBorder: "#d9dde8",
 };
 
 export const darkTheme = {
@@ -130,4 +113,23 @@ export const darkTheme = {
   // MOBILE NAV
   mobileNavBg: "#1a1d28",
   mobileNavText: "#939bb4",
+
+  // CREATE SET
+  createSetBg: "#13141b",
+  createSetHeaderBg: "black",
+  createSetHeaderTextColor: "white",
+  createSetHeaderButtonColor: "#282e3e",
+  createSetHeaderInputBorder: "#7b89c9",
+  createSetTermBg: "#282e3e",
+  createSetToolbarBorder: "#13141b",
+  createSetTermColor: "#c3c7d5",
+  createSetTermInputBorder: "#f6f7fb",
+  createSetTermInputColor: "#f6f7fb",
+  createSetSmallButton: "#939bb4",
+  createSetSmallButtonBorder: "#282e3e",
+  createSetSmallButtonBorderHover: "#303545",
+  createSetOptionsHeader: "#282e3e",
+  createSetOptionsBody: "#1a1d28",
+  createSetOptionsSelectBg: "#13141b",
+  createSetOptionsSelectBorder: "#282e3e",
 };

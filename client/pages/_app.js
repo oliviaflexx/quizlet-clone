@@ -16,7 +16,7 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
     <ThemeProvider theme={themeMode}>
       <GlobalStyles />
       <Header currentUser={currentUser} themeToggler={themeToggler} />
-      <Component {...pageProps} />
+      <Component currentUser={currentUser} {...pageProps} />
     </ThemeProvider>
   );
 };

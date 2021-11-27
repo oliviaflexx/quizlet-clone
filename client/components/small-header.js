@@ -115,7 +115,7 @@ const MobileNav = ({ setShowMobileNav, currentUser }) => {
       </button>
       {showCreate && (
         <div className="menu">
-          <Link href="/create-set">Study set</Link>
+          <Link href="/create/set">Study set</Link>
           <button onClick={() => setShowCreateFolderModal(true)}>Folder</button>
           <button onClick={() => setShowCreateClassModal(true)}>Class</button>
         </div>

@@ -217,7 +217,7 @@ const BigHeader = ({theme, themeToggler, currentUser }) => {
 
         {showCreateModal && (
           <CreateModal onBlur={handleShowModal} onClick={handleShowModal}>
-            <Link href="/create-set">
+            <Link href="/create/set">
               <a>
                 <FilterNoneOutlinedIcon /> Study set
               </a>
