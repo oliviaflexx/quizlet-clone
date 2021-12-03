@@ -41,7 +41,7 @@ validateRequest,
     set.terms.push(newTerm);
     await set.save()
 
-    await new TermCreatedPublisher(natsWrapper.client).publish({
+    new TermCreatedPublisher(natsWrapper.client).publish({
       id: newTerm.id,
       version: newTerm.version,
       term: newTerm.term,
@@ -49,7 +49,7 @@ validateRequest,
       set_id: set.id
     });
 
-    await new SetUpdatedPublisher(natsWrapper.client).publish({
+    new SetUpdatedPublisher(natsWrapper.client).publish({
       id: set.id,
       version: set.version,
       title: set.title,

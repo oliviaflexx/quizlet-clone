@@ -39,7 +39,7 @@ router.post(
 
     await folder.save();
 
-    await new FolderCreatedPublisher(natsWrapper.client).publish({
+    new FolderCreatedPublisher(natsWrapper.client).publish({
       id: folder.id,
       version: folder.version,
       title: folder.title,

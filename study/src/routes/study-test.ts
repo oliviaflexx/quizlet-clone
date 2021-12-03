@@ -49,7 +49,7 @@ router.get(
 
         const test = await buildTest(user_terms);
 
-       await new StudyCreatedPublisher(natsWrapper.client).publish({
+       new StudyCreatedPublisher(natsWrapper.client).publish({
          type: "flashcards",
          userId: req.currentUser!.id,
          date: new Date(),

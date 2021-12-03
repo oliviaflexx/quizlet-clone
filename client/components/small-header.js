@@ -16,11 +16,15 @@ import {
   SearchBarOpen,
 } from "../styles/small-header";
 
+
 const MobileNav = ({ setShowMobileNav, currentUser }) => {
   const [showLibrary, setShowLibrary] = useState(false);
   const [showCreate, setShowCreate] = useState(false);
   const [showCreateClassModal, setShowCreateClassModal] = useState(false);
   const [showCreateFolderModal, setShowCreateFolderModal] = useState(false);
+  const router = useRouter();
+
+  router.events.on('routeChangeStart', () => setShowMobileNav(false));
 
   const library = (
     <>
@@ -57,10 +61,7 @@ const MobileNav = ({ setShowMobileNav, currentUser }) => {
           </Link>
         </div>
       )}
-      <button
-        onBlur={() => setShowCreate(!showCreate)}
-        onClick={() => setShowCreate(!showCreate)}
-      >
+      <button onClick={() => setShowCreate(!showCreate)}>
         Create
         {showCreate ? (
           <KeyboardArrowUpOutlinedIcon />

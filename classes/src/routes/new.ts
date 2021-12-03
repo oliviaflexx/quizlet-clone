@@ -35,7 +35,7 @@ router.post(
 
     await newClass.save();
 
-    await new ClassCreatedPublisher(natsWrapper.client).publish({
+    new ClassCreatedPublisher(natsWrapper.client).publish({
       id: newClass.id,
       version: newClass.version,
       title: newClass.title,

@@ -50,7 +50,7 @@ router.put(
 
     await foundTerm.save();
 
-    await new TermUpdatedPublisher(natsWrapper.client).publish({
+    new TermUpdatedPublisher(natsWrapper.client).publish({
       id: foundTerm.id,
       version: foundTerm.version,
       term: foundTerm.term,

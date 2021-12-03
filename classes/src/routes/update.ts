@@ -41,7 +41,7 @@ router.put(
 
     await foundClass.save();
 
-    await new ClassUpdatedPublisher(natsWrapper.client).publish({
+    new ClassUpdatedPublisher(natsWrapper.client).publish({
       id: foundClass.id,
       title: foundClass.title,
       version: foundClass.version,
@@ -86,7 +86,7 @@ router.put(
     foundClass.set({numSets: foundClass.numSets + 1});
     await foundClass.save();
 
-    await new ClassUpdatedPublisher(natsWrapper.client).publish({
+    new ClassUpdatedPublisher(natsWrapper.client).publish({
       id: foundClass.id,
       title: foundClass.title,
       version: foundClass.version,
@@ -130,7 +130,7 @@ router.put(
     foundClass.set({ numSets: foundClass.numSets + folder.num_of_sets });
     await foundClass.save();
 
-    await new ClassUpdatedPublisher(natsWrapper.client).publish({
+    new ClassUpdatedPublisher(natsWrapper.client).publish({
       id: foundClass.id,
       title: foundClass.title,
       version: foundClass.version,
@@ -164,7 +164,7 @@ router.put(
     foundClass.set({ title: title });
     await foundClass.save();
 
-    await new ClassUpdatedPublisher(natsWrapper.client).publish({
+    new ClassUpdatedPublisher(natsWrapper.client).publish({
       id: foundClass.id,
       title: foundClass.title,
       version: foundClass.version,

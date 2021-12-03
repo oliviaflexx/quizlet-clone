@@ -56,7 +56,7 @@ router.put(
 
       folder.sets.push(set);
       await folder.save();
-      await new FolderUpdatedPublisher(natsWrapper.client).publish({
+      new FolderUpdatedPublisher(natsWrapper.client).publish({
         id: folder.id,
         title: folder.title,
         version: folder.version,

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Router from "next/router";
 import useRequest from "../../hooks/use-request";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
@@ -22,13 +22,13 @@ const CreateSet = ({ currentUser }) => {
   const [makeTermRequest, setTermMakeRequest] = useState(false);
   const isSmallScreen = useMediaQuery({ query: "(max-width: 600px)" });
   const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const focused = useRef(null);
+  const [changedField, setChangedField] = useState("");
 
   useEffect(() => {
     if (!currentUser) {
-      console.log(currentUser);
       Router.push("/auth/signup");
     }
-    console.log(showSettingsModal);
   }, []);
 
   const { doRequest: doCreateSetRequest, errors: createSetErrors } = useRequest(
@@ -93,7 +93,6 @@ const CreateSet = ({ currentUser }) => {
   }, [title]);
 
   useEffect(() => {
-    console.log(viewableBy);
     async function editSet() {
       if (created) {
         await doEditSetViewRequest();
@@ -103,7 +102,6 @@ const CreateSet = ({ currentUser }) => {
   }, [viewableBy]);
 
   useEffect(() => {
-    console.log(editableBy);
     async function editSet() {
       if (created) {
         await doEditSetEditableRequest();
@@ -125,6 +123,9 @@ const CreateSet = ({ currentUser }) => {
       newTerms[currentTermIndex].id = Term.id;
       setTerms(newTerms);
       setSaved(new Date());
+      setEmptyTerm(false);
+      focused.current.focus();
+      focused.current.selectionStart = focused.current.value.length;
     },
   });
 
@@ -138,6 +139,7 @@ const CreateSet = ({ currentUser }) => {
     },
     onSuccess: (Term) => {
       setSaved(new Date());
+      setEmptyTerm(false);
     },
   });
 
@@ -152,6 +154,7 @@ const CreateSet = ({ currentUser }) => {
         ) {
           await termEdit();
         } else {
+          setEmptyTerm(true);
           return;
         }
       } else {
@@ -161,18 +164,14 @@ const CreateSet = ({ currentUser }) => {
         ) {
           await termCreate();
         } else {
+          setEmptyTerm(true);
           return;
         }
       }
+      // console.log(1);
     }
     editTerm();
-    for (let term of terms) {
-      if (!term.definition || !term.term) {
-        setEmptyTerm(true);
-        return;
-      }
-    }
-    setEmptyTerm(false);
+    console.log("TERMS AFTER", terms);
   }, [makeTermRequest]);
 
   useEffect(() => {
@@ -229,6 +228,14 @@ const CreateSet = ({ currentUser }) => {
     };
   }, [saved]);
 
+  const findEmptyTerms = () => {
+    const empty = terms.find(term => term.definition === "" || term.term === "");
+    if (empty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   return (
     <StyledCreateSet size={isSmallScreen ? "small" : "big"}>
       {showSettingsModal && (
@@ -347,6 +354,11 @@ const CreateSet = ({ currentUser }) => {
                 <div className="inner">
                   <div className="left">
                     <TextareaAutosize
+                      ref={
+                        index === currentTermIndex && changedField === "term"
+                          ? focused
+                          : null
+                      }
                       minRows={1}
                       placeholder="Enter term"
                       value={term.term}
@@ -356,10 +368,12 @@ const CreateSet = ({ currentUser }) => {
                         const newTerm = newTerms[index];
                         newTerm.term = e.target.value;
                         setTerms(newTerms);
-                      }}
-                      onBlur={() => {
                         setTermMakeRequest(!makeTermRequest);
+                        setChangedField("term");
                       }}
+                      // onBlur={() => {
+                      //   setTermMakeRequest(!makeTermRequest);
+                      // }}
                       disabled={title ? false : true}
                     />
                     {/* {!term.term && <p>Term cannot be empty</p>} */}
@@ -367,6 +381,11 @@ const CreateSet = ({ currentUser }) => {
                   </div>
                   <div className="right">
                     <TextareaAutosize
+                      ref={
+                        index === currentTermIndex && changedField === "definition"
+                          ? focused
+                          : null
+                      }
                       minRows={1}
                       placeholder="Enter definition"
                       value={term.definition}
@@ -376,8 +395,10 @@ const CreateSet = ({ currentUser }) => {
                         const newTerm = newTerms[index];
                         newTerm.definition = e.target.value;
                         setTerms(newTerms);
+                        setTermMakeRequest(!makeTermRequest);
+                        setChangedField("definition");
                       }}
-                      onBlur={() => setTermMakeRequest(!makeTermRequest)}
+                      // onBlur={() => setTermMakeRequest(!makeTermRequest)}
                       disabled={title ? false : true}
                     />
                     {/* {!term.definition && <p>Definition cannot be empty</p>} */}
@@ -388,33 +409,31 @@ const CreateSet = ({ currentUser }) => {
               </div>
             );
           })}
-          {!emptyTerm ? (
             <button
               className="add-term"
               onClick={() => {
-                setTerms((terms) => [
-                  ...terms,
-                  { id: "", term: "", definition: "" },
-                ]);
-                setCurrentTermIndex(terms.length - 1);
+                // console.log("EMPTY TERMS ?", findEmptyTerms());
+                // console.log("CURRENT ID EMPTY ?", terms[currentTermIndex].id === "");
+                // console.log("TERMS BEFORE", terms);
+                if (findEmptyTerms() === false) {
+                  // if (terms[currentTermIndex].id === "") {
+                  //   setTermMakeRequest(!makeTermRequest);
+                  // }
+                  // console.log(2);
+                  // console.log(terms[currentTermIndex]);
+                  setTerms((terms) => [
+                    ...terms,
+                    { id: "", term: "", definition: "" },
+                  ]);
+                  setCurrentTermIndex(terms.length - 1);
+                  // console.log("MADE TERM")
+                }
+                // console.log("TERMS AFTER", terms);
               }}
             >
               <div className="button-text">+ ADD CARD</div>
             </button>
-          ) : (
-            <button
-              className="add-term"
-              onClick={() => {
-                setTerms((terms) => [
-                  ...terms,
-                  { id: "", term: "", definition: "" },
-                ]);
-              }}
-              disabled
-            >
-              <div className="button-text">+ ADD CARD</div>
-            </button>
-          )}
+    
           {created ? (
             <button
               className="create"
