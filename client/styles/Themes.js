@@ -64,6 +64,15 @@ export const lightTheme = {
   createSetOptionsBody: "white",
   createSetOptionsSelectBg: "white",
   createSetOptionsSelectBorder: "#d9dde8",
+
+  // SET INDEX
+  setIndexFontColor: "#303545",
+  setIndexSmallTextColor: "#939bb4",
+  setIndexTopBg: "white",
+  setIndexBottomBg: "#f6f7fb",
+  setIndexFlashcardBg: "white",
+  setIndexTermBg: "white",
+  setIndexTermBorder: "#13141b",
 };
 
 export const darkTheme = {
@@ -132,4 +141,13 @@ export const darkTheme = {
   createSetOptionsBody: "#1a1d28",
   createSetOptionsSelectBg: "#13141b",
   createSetOptionsSelectBorder: "#282e3e",
+
+  // SET INDEX
+  setIndexFontColor: "white",
+  setIndexSmallTextColor: "white",
+  setIndexTopBg: "#13141b",
+  setIndexBottomBg: "#1a1d28",
+  setIndexFlashcardBg: "#1a1d28",
+  setIndexTermBg: "#282e3e",
+  
 };
