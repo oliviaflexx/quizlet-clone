@@ -73,6 +73,19 @@ export const lightTheme = {
   setIndexFlashcardBg: "white",
   setIndexTermBg: "white",
   setIndexTermBorder: "#13141b",
+
+  // SET FLASHCARDS
+  setFlashcardsTextColor: "#303545",
+  setFlashcardsSideBg: "white",
+  setFlashcardsSideButtonBorder: "#d9dde8",
+  setFlashcardsSideButtonBg: "white",
+  setFlashcardsCardBg: "white",
+  setFlashcardsBg: "#f6f7fb",
+
+  // SMALL FLASHCARDS
+  setFlashcardsHeader: "#4257b2",
+  setFlashcardsProgressBg: "white",
+  
 };
 
 export const darkTheme = {
@@ -149,5 +162,16 @@ export const darkTheme = {
   setIndexBottomBg: "#1a1d28",
   setIndexFlashcardBg: "#1a1d28",
   setIndexTermBg: "#282e3e",
-  
+
+  // SET FLASHCARDS
+  setFlashcardsTextColor: "white",
+  setFlashcardsSideBg: "#1a1d28",
+  setFlashcardsSideButtonBorder: "#282e3e",
+  setFlashcardsSideButtonBg: "#13141b",
+  setFlashcardsCardBg: "#2e3856",
+  setFlashcardsBg: "#13141b",
+
+  // SMALL FLASHCARDS
+  setFlashcardsHeader: "#13141b",
+  setFlashcardsProgressBg: "#1a1d28",
 };
