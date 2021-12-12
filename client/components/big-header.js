@@ -68,7 +68,7 @@ const BigHeader = ({theme, themeToggler, currentUser }) => {
               </Link>
             </div>
             <div className="header-link">
-              <Link href="/user/[user]" as={`/user/${currentUser}`}>
+              <Link href="/user/[userId]/sets" as={`/user/${currentUser.id}/sets`}>
                 <NavLink>Your Library</NavLink>
               </Link>
             </div>

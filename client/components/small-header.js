@@ -41,21 +41,21 @@ const MobileNav = ({ setShowMobileNav, currentUser }) => {
           <Link
             onClick={() => setShowMobileNav(false)}
             href="/user/[user]/sets"
-            as={`/user/${currentUser.name}/sets`}
+            as={`/user/${currentUser.id}/sets`}
           >
             Study sets
           </Link>
           <Link
             onClick={() => setShowMobileNav(false)}
             href="/user/[user]/folders"
-            as={`/user/${currentUser.name}/folders`}
+            as={`/user/${currentUser.id}/folders`}
           >
             Folders
           </Link>
           <Link
             onClick={() => setShowMobileNav(false)}
             href="/user/[user]/classes"
-            as={`/user/${currentUser.name}/classes`}
+            as={`/user/${currentUser.id}/classes`}
           >
             Classes
           </Link>
