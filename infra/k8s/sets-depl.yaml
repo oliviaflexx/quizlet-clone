@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: sets
-          image: us.gcr.io/my-quizlet/sets
+          image: oliviaflexx/sets
           env:
             - name: NATS_CLIENT_ID
               valueFrom:

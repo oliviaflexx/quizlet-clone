@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: folders
-          image: us.gcr.io/my-quizlet/folders
+          image: oliviaflexx/folders
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
