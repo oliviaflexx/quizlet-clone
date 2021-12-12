@@ -3,6 +3,8 @@ import styled from "styled-components";
 const StyledAuth = styled.div`
   display: flex;
   height: 100vh;
+  color: ${({ theme }) => theme.setIndexFontColor};
+  background: ${({ theme }) => theme.setIndexTopBg};
   > div.left,
   div.right {
     ${(props) => {
@@ -41,7 +43,6 @@ const StyledAuth = styled.div`
       padding: 1rem;
       margin-top: 5rem;
       > h3 {
-        color: #303545;
         font-weight: 700;
       }
       > div.form-group {
@@ -63,7 +64,7 @@ const StyledAuth = styled.div`
           background-color: initial;
           border: none;
           box-shadow: none;
-          color: #1a1d28;
+          color: ${({ theme }) => theme.setIndexFontColor};
           cursor: text;
           filter: none;
           flex: 1 1 auto;
