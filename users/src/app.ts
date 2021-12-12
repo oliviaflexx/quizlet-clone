@@ -28,6 +28,8 @@ app.use(signoutRouter);
 app.use(signupRouter);
 app.use(libraryRouter);
 
+console.log("test change");
+
 app.all('*', async (req, res) => {
   throw new NotFoundError();
 });
