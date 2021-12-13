@@ -20,7 +20,9 @@ it("", async () => {
     })
     .expect(201);
 
-  const library = await Library.findOne({});
+  const library = await Library.findOne({}).populate("user");
+
+  console.log(library!.user);
 
    const set = Set.build({
      id: new mongoose.Types.ObjectId().toHexString(),

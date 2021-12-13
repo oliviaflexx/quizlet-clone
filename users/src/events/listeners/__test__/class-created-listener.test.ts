@@ -22,7 +22,7 @@ const setup = async () => {
     version: 0,
     id: new mongoose.Types.ObjectId().toHexString(),
     title: "test title",
-    admin: user.id,
+    admin: user.name,
     school: "McGill"
   };
 
@@ -43,6 +43,7 @@ it("creates and saves a class", async () => {
 
   const foundClass = await Class.findById(data.id);
 
+  console.log(foundClass);
   expect(foundClass).toBeDefined();
   expect(foundClass!.school).toEqual(data.school);
   expect(foundClass!.version).toEqual(0);

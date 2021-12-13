@@ -18,11 +18,12 @@ router.get("/api/users/library/:id", async (req: Request, res: Response) => {
     throw new NotFoundError();
   }
 
-  const library = await Library.findOne({ user: user });
+  const library = await Library.findOne({ user: user }).populate("user");
 
   if (!library) {
     throw new NotFoundError();
   }
+
 
   try {
     library.populate([{ path: "sets.created.set", model: "Set" }]);
